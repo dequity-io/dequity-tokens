@@ -1,0 +1,2266 @@
+.version sol 0.62.0
+
+.macro constructor
+DROP
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+GETGLOB 6
+THROWIF 51
+LDU 32
+LDDICT
+ROTREV
+PAIR
+SWAP
+LDU 8
+ENDS
+.loc ../contracts/MultiSig24.tsol, 124
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+GETGLOB 2
+EQUAL
+THROWIFNOT 100
+.loc ../contracts/MultiSig24.tsol, 125
+OVER
+FIRST
+GTINT 0
+PUSH S2
+FIRST
+LESSINT 33
+AND
+THROWIFNOT 117
+.loc ../contracts/MultiSig24.tsol, 126
+ACCEPT
+.loc ../contracts/MultiSig24.tsol, 106
+PUSHINT 0
+PUSH2 S0, S2
+.loc ../contracts/MultiSig24.tsol, 107
+SECOND
+PUSHINT 32
+DICTUGET
+THROWIFNOT 50
+PLDU 256
+SETGLOB 10
+.loc ../contracts/MultiSig24.tsol, 109
+PUSH S2
+FIRST
+.loc ../contracts/MultiSig24.tsol, 110
+PUSHINT 0
+PUSHCONT {
+	PUSH2 S0, S1
+	LESS
+	PUSH S3
+	LESSINT 32
+	AND
+}
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 111
+	PUSH2 S0, S4
+	SECOND
+	PUSHINT 32
+	DICTUGET
+	THROWIFNOT 50
+	PLDU 256
+	.loc ../contracts/MultiSig24.tsol, 112
+	DUP
+	GETGLOB 13
+	PUSHPOW2 8
+	DICTUGET
+	NULLSWAPIFNOT
+	NIP
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 113
+		PUSH2 S3, S3
+		INC
+		UFITS 8
+		POP S5
+		OVER
+		GETGLOB 13
+		ROT
+		NEWC
+		STU 8
+		ROTREV
+		PUSHPOW2 8
+		DICTUSETB
+		SETGLOB 13
+		.loc ../contracts/MultiSig24.tsol, 0
+	}
+	IFNOT
+	.loc ../contracts/MultiSig24.tsol, 0
+	DROP
+	.loc ../contracts/MultiSig24.tsol, 110
+	INC
+	.loc ../contracts/MultiSig24.tsol, 0
+}
+WHILE
+DROP2
+.loc ../contracts/MultiSig24.tsol, 116
+PUSH2 S0, S1
+LEQ
+PUSHCONT {
+	DUP
+}
+PUSHCONT {
+	OVER
+}
+IFELSE
+SETGLOB 15
+.loc ../contracts/MultiSig24.tsol, 117
+SETGLOB 14
+.loc ../contracts/MultiSig24.tsol, 0
+DROP2
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	tvm_ctos_2d5b4b5f_internal
+.type	tvm_ctos_2d5b4b5f_internal, @function
+CALL $tvm_ctos_2d5b4b5f_internal_macro$
+
+.macro tvm_ctos_2d5b4b5f_internal_macro
+.loc ../contracts/MultiSig24.tsol, 97
+DROP
+PUSHINT 0
+.loc ../contracts/MultiSig24.tsol, 0
+
+.globl	tvm_tree_cell_size_14f2ec38_internal
+.type	tvm_tree_cell_size_14f2ec38_internal, @function
+CALL $tvm_tree_cell_size_14f2ec38_internal_macro$
+
+.macro tvm_tree_cell_size_14f2ec38_internal_macro
+.loc ../contracts/MultiSig24.tsol, 98
+DROP
+PUSHINT 0
+DUP
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro acceptTransfer
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 200
+LDREF
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $acceptTransfer_d161b641_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro acceptTransfer_d161b641_internal_macro
+.loc ../contracts/MultiSig24.tsol, 201
+PUSHSLICE xc00000000000000000000000007d729cc8
+NEWC
+STSLICE
+STREF
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro sendTransaction
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 211
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 128
+LDI 1
+LDU 8
+LDREF
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $sendTransaction_c96c9ed1_internal_macro$
+}
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	sendTransaction_c96c9ed1_internal
+.type	sendTransaction_c96c9ed1_internal, @function
+CALL $sendTransaction_c96c9ed1_internal_macro$
+
+.macro sendTransaction_c96c9ed1_internal_macro
+.loc ../contracts/MultiSig24.tsol, 218
+GETGLOB 14
+EQINT 1
+THROWIFNOT 108
+.loc ../contracts/MultiSig24.tsol, 219
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+GETGLOB 10
+EQUAL
+THROWIFNOT 100
+.loc ../contracts/MultiSig24.tsol, 220
+ACCEPT
+.loc ../contracts/MultiSig24.tsol, 221
+ROLL 3
+BLKSWAP 2, 3
+NEWC
+STSLICECONST x6_
+STI 1
+STSLICECONST x1_
+STSLICE
+SWAP
+STGRAMS
+PUSHINT 1
+STUR 107
+STREF
+ENDC
+SWAP
+SENDRAWMSG
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro submitTransaction
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 231
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 128
+LDI 1
+LDI 1
+LDREF
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $submitTransaction_18baf33b_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2468184781
+	STUR 130
+	STU 64
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	submitTransaction_18baf33b_internal
+.type	submitTransaction_18baf33b_internal, @function
+CALL $submitTransaction_18baf33b_internal_macro$
+
+.macro submitTransaction_18baf33b_internal_macro
+.loc ../contracts/MultiSig24.tsol, 231
+PUSHINT 0
+.loc ../contracts/MultiSig24.tsol, 239
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+.loc ../contracts/MultiSig24.tsol, 240
+BLKPUSH 2, 0
+.loc ../contracts/MultiSig24.tsol, 167
+GETGLOB 13
+PUSHPOW2 8
+DICTUGET
+NULLSWAPIFNOT
+NIP
+.loc ../contracts/MultiSig24.tsol, 168
+THROWIFNOT 100
+.loc ../contracts/MultiSig24.tsol, 169
+GETGLOB 13
+PUSHPOW2 8
+DICTUGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDU 8
+}
+IF
+.loc ../contracts/MultiSig24.tsol, 241
+PUSH S6
+PUSHINT 1000000
+GEQ
+THROWIFNOT 107
+.loc ../contracts/MultiSig24.tsol, 242
+PUSH S3
+CALLREF {
+	CALL $tvm_ctos_2d5b4b5f_internal_macro$
+}
+CALLREF {
+	CALL $tvm_tree_cell_size_14f2ec38_internal_macro$
+}
+.loc ../contracts/MultiSig24.tsol, 243
+OVER
+PUSHPOW2 13
+LESS
+OVER
+LESSINT 8
+AND
+THROWIFNOT 121
+.loc ../contracts/MultiSig24.tsol, 244
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 180
+	NOW
+	PUSHINT 86400
+	SUB
+	UFITS 64
+	LSHIFT 32
+	UFITS 64
+	.loc ../contracts/MultiSig24.tsol, 304
+	GETGLOB 12
+	PUSHINT 64
+	DICTUMINREF
+	NULLSWAPIFNOT
+	IFREF {
+		SWAP
+		CTOS
+		CALLREF {
+			LDU 64
+			LDU 32
+			LDU 8
+			LDU 8
+			LDU 256
+			LDU 8
+			LDMSGADDR
+			LDREF
+			ENDS
+			CTOS
+			LDU 128
+			LDU 16
+			LDREF
+			LDI 1
+			ENDS
+			TUPLE 11
+		}
+		PAIR
+	}
+	.loc ../contracts/MultiSig24.tsol, 305
+	PUSHINT 0
+	BLKPUSH 6, 0
+	.loc ../contracts/MultiSig24.tsol, 306
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	DUP
+	PUSHREF {
+	}
+	PUSHINT 0
+	TUPLE 11
+	.loc ../contracts/MultiSig24.tsol, 307
+	PUSHINT 0
+	.loc ../contracts/MultiSig24.tsol, 308
+	PUSH S3
+	ISNULL
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 308
+		DROP
+		FALSE
+	}
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 308
+		PUSH2 S3, S3
+		ISNULL
+		THROWIF 63
+		UNPAIR
+		POP S3
+		POP S3
+		DROP
+		TRUE
+	}
+	IFELSE
+	.loc ../contracts/MultiSig24.tsol, 310
+	PUSH3 S0, S2, S4
+	LEQ
+	AND
+	.loc ../contracts/MultiSig24.tsol, 311
+	DUP
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 311
+		BLKDROP 6
+		.loc ../contracts/MultiSig24.tsol, 0
+	}
+	IFNOTJMP
+	.loc ../contracts/MultiSig24.tsol, 313
+	ACCEPT
+	.loc ../contracts/MultiSig24.tsol, 314
+	PUSHINT 0
+	.loc ../contracts/MultiSig24.tsol, 315
+	PUSHCONT {
+		DUP2
+		LESSINT 40
+		AND
+	}
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 317
+		INC
+		.loc ../contracts/MultiSig24.tsol, 318
+		PUSH S3
+		INDEX 5
+		.loc ../contracts/MultiSig24.tsol, 146
+		GETGLOB 11
+		PUSHINT 1
+		PUSHINT 8
+		ROLL 3
+		MUL
+		LSHIFT
+		SUB
+		UFITS 256
+		.loc ../contracts/MultiSig24.tsol, 0
+		SETGLOB 11
+		.loc ../contracts/MultiSig24.tsol, 319
+		PUSH S4
+		GETGLOB 12
+		PUSHINT 64
+		DICTUDEL
+		DROP
+		SETGLOB 12
+		.loc ../contracts/MultiSig24.tsol, 322
+		PUSH S4
+		GETGLOB 12
+		PUSHINT 64
+		DICTUGETNEXT
+		NULLSWAPIFNOT
+		IFREF {
+			SWAP
+			PLDREF
+			CTOS
+			CALLREF {
+				LDU 64
+				LDU 32
+				LDU 8
+				LDU 8
+				LDU 256
+				LDU 8
+				LDMSGADDR
+				LDREF
+				ENDS
+				CTOS
+				LDU 128
+				LDU 16
+				LDREF
+				LDI 1
+				ENDS
+				TUPLE 11
+			}
+			PAIR
+		}
+		.loc ../contracts/MultiSig24.tsol, 323
+		DUP
+		ISNULL
+		PUSHCONT {
+			.loc ../contracts/MultiSig24.tsol, 323
+			FALSE
+		}
+		PUSHCONT {
+			.loc ../contracts/MultiSig24.tsol, 323
+			BLKPUSH 2, 0
+			ISNULL
+			THROWIF 63
+			UNPAIR
+			POP S6
+			POP S6
+			TRUE
+		}
+		IFELSE
+		POP S4
+		.loc ../contracts/MultiSig24.tsol, 324
+		DROP
+		PUSH3 S2, S4, S6
+		LEQ
+		AND
+		POP S2
+		.loc ../contracts/MultiSig24.tsol, 0
+	}
+	WHILE
+	.loc ../contracts/MultiSig24.tsol, 326
+	BLKDROP 7
+	CALLREF {
+		CALL $c7_to_c4$
+	}
+	COMMIT
+	.loc ../contracts/MultiSig24.tsol, 300
+}
+CALLX
+.loc ../contracts/MultiSig24.tsol, 245
+DROP2
+GETGLOB 11
+PUSHINT 8
+PUSH S2
+.loc ../contracts/MultiSig24.tsol, 136
+MULRSHIFT
+PUSHPOW2DEC 8
+AND
+UFITS 8
+.loc ../contracts/MultiSig24.tsol, 0
+LESSINT 5
+THROWIFNOT 113
+.loc ../contracts/MultiSig24.tsol, 246
+ACCEPT
+.loc ../contracts/MultiSig24.tsol, 248
+ROLL 6
+ROLL 5
+.loc ../contracts/MultiSig24.tsol, 185
+PUSHINT 2
+PUSHINT 1
+OR
+.loc ../contracts/MultiSig24.tsol, 186
+SWAP
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 187
+	PUSHINT 2
+	PUSHPOW2 7
+	OR
+	NIP
+	.loc ../contracts/MultiSig24.tsol, 188
+	GETPARAM 7
+	FIRST
+	POP S2
+	.loc ../contracts/MultiSig24.tsol, 0
+}
+IF
+.loc ../contracts/MultiSig24.tsol, 190
+SWAP
+.loc ../contracts/MultiSig24.tsol, 249
+GETGLOB 15
+.loc ../contracts/MultiSig24.tsol, 251
+DUP
+EQINT 1
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 252
+	DROP
+	BLKSWAP 2, 6
+	NEWC
+	STSLICECONST x6_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	PUSHINT 1
+	STUR 107
+	ROLL 5
+	STREFR
+	ENDC
+	SWAP
+	SENDRAWMSG
+	.loc ../contracts/MultiSig24.tsol, 253
+	BLKDROP 3
+	PUSHINT 0
+	.loc ../contracts/MultiSig24.tsol, 0
+}
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 255
+	GETGLOB 11
+	PUSHINT 1
+	PUSHINT 8
+	PUSH S6
+	.loc ../contracts/MultiSig24.tsol, 141
+	MUL
+	LSHIFT
+	ADD
+	.loc ../contracts/MultiSig24.tsol, 0
+	SETGLOB 11
+	.loc ../contracts/MultiSig24.tsol, 175
+	NOW
+	LSHIFT 32
+	UFITS 64
+	LTIME
+	PUSHPOW2DEC 32
+	AND
+	OR
+	.loc ../contracts/MultiSig24.tsol, 257
+	DUP
+	PUSHINT 0
+	ROLL 3
+	PUSHINT 0
+	ROLL 8
+	PUSH S8
+	ROLL 13
+	BLKSWAP 2, 8
+	SWAP
+	BLKSWAP 2, 12
+	SWAP
+	TUPLE 11
+	.loc ../contracts/MultiSig24.tsol, 260
+	PUXC S1, S-1
+	ROLL 3
+	.loc ../contracts/MultiSig24.tsol, 288
+	OVER
+	INDEX 3
+	INC
+	UFITS 8
+	PUSH S2
+	THIRD
+	GEQ
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 289
+		OVER
+		INDEX 7
+		PUSH S2
+		INDEX 6
+		PUSH S3
+		INDEX 10
+		NEWC
+		STSLICECONST x6_
+		STI 1
+		STSLICECONST x1_
+		STSLICE
+		SWAP
+		STGRAMS
+		PUSHINT 1
+		STUR 107
+		PUSH S2
+		INDEX 9
+		STREFR
+		ENDC
+		PUSH S2
+		INDEX 8
+		SENDRAWMSG
+		.loc ../contracts/MultiSig24.tsol, 290
+		OVER
+		INDEX 5
+		.loc ../contracts/MultiSig24.tsol, 146
+		GETGLOB 11
+		PUSHINT 1
+		PUSHINT 8
+		ROLL 3
+		MUL
+		LSHIFT
+		SUB
+		UFITS 256
+		.loc ../contracts/MultiSig24.tsol, 0
+		SETGLOB 11
+		.loc ../contracts/MultiSig24.tsol, 291
+		PUSH S2
+		GETGLOB 12
+		PUSHINT 64
+		DICTUDEL
+		DROP
+	}
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 293
+		OVER
+		SECOND
+		PUSHINT 1
+		PUSH S2
+		.loc ../contracts/MultiSig24.tsol, 161
+		LSHIFT
+		UFITS 32
+		OR
+		.loc ../contracts/MultiSig24.tsol, 0
+		PUXC S2, S-1
+		SETINDEX 1
+		POP S2
+		.loc ../contracts/MultiSig24.tsol, 294
+		PUSH2 S1, S1
+		INDEX 3
+		INC
+		UFITS 8
+		SETINDEX 3
+		POP S2
+		.loc ../contracts/MultiSig24.tsol, 295
+		PUSH S2
+		GETGLOB 12
+		PUSH S3
+		CALLREF {
+			UNTUPLE 11
+			REVERSE 11, 0
+			NEWC
+			STU 64
+			STU 32
+			STU 8
+			STU 8
+			STU 256
+			STU 8
+			STSLICE
+			ROLLREV 4
+			NEWC
+			STU 128
+			STU 16
+			STREF
+			STI 1
+			STBREFR
+		}
+		ENDC
+		ROTREV
+		PUSHINT 64
+		DICTUSETREF
+	}
+	IFELSE
+	SETGLOB 12
+	.loc ../contracts/MultiSig24.tsol, 0
+	BLKDROP 3
+	.loc ../contracts/MultiSig24.tsol, 261
+	NIP
+	.loc ../contracts/MultiSig24.tsol, 0
+}
+IFELSE
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro confirmTransaction
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 267
+LDU 64
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $confirmTransaction_5798d056_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	confirmTransaction_5798d056_internal
+.type	confirmTransaction_5798d056_internal, @function
+CALL $confirmTransaction_5798d056_internal_macro$
+
+.macro confirmTransaction_5798d056_internal_macro
+.loc ../contracts/MultiSig24.tsol, 268
+GETGLOB 5
+DUP
+ISNULL
+PUSHCONT {
+	DROP
+	PUSHINT 0
+}
+IF
+.loc ../contracts/MultiSig24.tsol, 167
+DUP
+GETGLOB 13
+PUSHPOW2 8
+DICTUGET
+NULLSWAPIFNOT
+NIP
+.loc ../contracts/MultiSig24.tsol, 168
+THROWIFNOT 100
+.loc ../contracts/MultiSig24.tsol, 169
+GETGLOB 13
+PUSHPOW2 8
+DICTUGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDU 8
+}
+IF
+.loc ../contracts/MultiSig24.tsol, 269
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 180
+	NOW
+	PUSHINT 86400
+	SUB
+	UFITS 64
+	LSHIFT 32
+	UFITS 64
+	.loc ../contracts/MultiSig24.tsol, 304
+	GETGLOB 12
+	PUSHINT 64
+	DICTUMINREF
+	NULLSWAPIFNOT
+	IFREF {
+		SWAP
+		CTOS
+		CALLREF {
+			LDU 64
+			LDU 32
+			LDU 8
+			LDU 8
+			LDU 256
+			LDU 8
+			LDMSGADDR
+			LDREF
+			ENDS
+			CTOS
+			LDU 128
+			LDU 16
+			LDREF
+			LDI 1
+			ENDS
+			TUPLE 11
+		}
+		PAIR
+	}
+	.loc ../contracts/MultiSig24.tsol, 305
+	PUSHINT 0
+	BLKPUSH 6, 0
+	.loc ../contracts/MultiSig24.tsol, 306
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	DUP
+	PUSHREF {
+	}
+	PUSHINT 0
+	TUPLE 11
+	.loc ../contracts/MultiSig24.tsol, 307
+	PUSHINT 0
+	.loc ../contracts/MultiSig24.tsol, 308
+	PUSH S3
+	ISNULL
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 308
+		DROP
+		FALSE
+	}
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 308
+		PUSH2 S3, S3
+		ISNULL
+		THROWIF 63
+		UNPAIR
+		POP S3
+		POP S3
+		DROP
+		TRUE
+	}
+	IFELSE
+	.loc ../contracts/MultiSig24.tsol, 310
+	PUSH3 S0, S2, S4
+	LEQ
+	AND
+	.loc ../contracts/MultiSig24.tsol, 311
+	DUP
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 311
+		BLKDROP 6
+		.loc ../contracts/MultiSig24.tsol, 0
+	}
+	IFNOTJMP
+	.loc ../contracts/MultiSig24.tsol, 313
+	ACCEPT
+	.loc ../contracts/MultiSig24.tsol, 314
+	PUSHINT 0
+	.loc ../contracts/MultiSig24.tsol, 315
+	PUSHCONT {
+		DUP2
+		LESSINT 40
+		AND
+	}
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 317
+		INC
+		.loc ../contracts/MultiSig24.tsol, 318
+		PUSH S3
+		INDEX 5
+		.loc ../contracts/MultiSig24.tsol, 146
+		GETGLOB 11
+		PUSHINT 1
+		PUSHINT 8
+		ROLL 3
+		MUL
+		LSHIFT
+		SUB
+		UFITS 256
+		.loc ../contracts/MultiSig24.tsol, 0
+		SETGLOB 11
+		.loc ../contracts/MultiSig24.tsol, 319
+		PUSH S4
+		GETGLOB 12
+		PUSHINT 64
+		DICTUDEL
+		DROP
+		SETGLOB 12
+		.loc ../contracts/MultiSig24.tsol, 322
+		PUSH S4
+		GETGLOB 12
+		PUSHINT 64
+		DICTUGETNEXT
+		NULLSWAPIFNOT
+		IFREF {
+			SWAP
+			PLDREF
+			CTOS
+			CALLREF {
+				LDU 64
+				LDU 32
+				LDU 8
+				LDU 8
+				LDU 256
+				LDU 8
+				LDMSGADDR
+				LDREF
+				ENDS
+				CTOS
+				LDU 128
+				LDU 16
+				LDREF
+				LDI 1
+				ENDS
+				TUPLE 11
+			}
+			PAIR
+		}
+		.loc ../contracts/MultiSig24.tsol, 323
+		DUP
+		ISNULL
+		PUSHCONT {
+			.loc ../contracts/MultiSig24.tsol, 323
+			FALSE
+		}
+		PUSHCONT {
+			.loc ../contracts/MultiSig24.tsol, 323
+			BLKPUSH 2, 0
+			ISNULL
+			THROWIF 63
+			UNPAIR
+			POP S6
+			POP S6
+			TRUE
+		}
+		IFELSE
+		POP S4
+		.loc ../contracts/MultiSig24.tsol, 324
+		DROP
+		PUSH3 S2, S4, S6
+		LEQ
+		AND
+		POP S2
+		.loc ../contracts/MultiSig24.tsol, 0
+	}
+	WHILE
+	.loc ../contracts/MultiSig24.tsol, 326
+	BLKDROP 7
+	CALLREF {
+		CALL $c7_to_c4$
+	}
+	COMMIT
+	.loc ../contracts/MultiSig24.tsol, 300
+}
+CALLX
+.loc ../contracts/MultiSig24.tsol, 270
+OVER
+GETGLOB 12
+PUSHINT 64
+DICTUGET
+NULLSWAPIFNOT
+NIP
+.loc ../contracts/MultiSig24.tsol, 271
+THROWIFNOT 102
+.loc ../contracts/MultiSig24.tsol, 272
+OVER
+GETGLOB 12
+PUSHINT 64
+DICTUGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDU 64
+		LDU 32
+		LDU 8
+		LDU 8
+		LDU 256
+		LDU 8
+		LDMSGADDR
+		LDREF
+		ENDS
+		CTOS
+		LDU 128
+		LDU 16
+		LDREF
+		LDI 1
+		ENDS
+		TUPLE 11
+	}
+}
+PUSHCONT {
+	PUSHINT 0
+	BLKPUSH 5, 0
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	DUP
+	PUSHREF {
+	}
+	PUSHINT 0
+	TUPLE 11
+}
+IFELSE
+.loc ../contracts/MultiSig24.tsol, 273
+DUP
+SECOND
+PUXC S2, S-1
+.loc ../contracts/MultiSig24.tsol, 151
+PUSHINT 1
+ROT
+LSHIFT
+UFITS 32
+AND
+THROWIF 103
+.loc ../contracts/MultiSig24.tsol, 274
+ACCEPT
+.loc ../contracts/MultiSig24.tsol, 276
+TUCK
+.loc ../contracts/MultiSig24.tsol, 288
+INDEX 3
+INC
+UFITS 8
+PUSH S2
+THIRD
+GEQ
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 289
+	OVER
+	INDEX 7
+	PUSH S2
+	INDEX 6
+	PUSH S3
+	INDEX 10
+	NEWC
+	STSLICECONST x6_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	PUSHINT 1
+	STUR 107
+	PUSH S2
+	INDEX 9
+	STREFR
+	ENDC
+	PUSH S2
+	INDEX 8
+	SENDRAWMSG
+	.loc ../contracts/MultiSig24.tsol, 290
+	OVER
+	INDEX 5
+	.loc ../contracts/MultiSig24.tsol, 146
+	GETGLOB 11
+	PUSHINT 1
+	PUSHINT 8
+	ROLL 3
+	MUL
+	LSHIFT
+	SUB
+	UFITS 256
+	.loc ../contracts/MultiSig24.tsol, 0
+	SETGLOB 11
+	.loc ../contracts/MultiSig24.tsol, 291
+	PUSH S2
+	GETGLOB 12
+	PUSHINT 64
+	DICTUDEL
+	DROP
+}
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 293
+	OVER
+	SECOND
+	PUSHINT 1
+	PUSH S2
+	.loc ../contracts/MultiSig24.tsol, 161
+	LSHIFT
+	UFITS 32
+	OR
+	.loc ../contracts/MultiSig24.tsol, 0
+	PUXC S2, S-1
+	SETINDEX 1
+	POP S2
+	.loc ../contracts/MultiSig24.tsol, 294
+	PUSH2 S1, S1
+	INDEX 3
+	INC
+	UFITS 8
+	SETINDEX 3
+	POP S2
+	.loc ../contracts/MultiSig24.tsol, 295
+	PUSH S2
+	GETGLOB 12
+	PUSH S3
+	CALLREF {
+		UNTUPLE 11
+		REVERSE 11, 0
+		NEWC
+		STU 64
+		STU 32
+		STU 8
+		STU 8
+		STU 256
+		STU 8
+		STSLICE
+		ROLLREV 4
+		NEWC
+		STU 128
+		STU 16
+		STREF
+		STI 1
+		STBREFR
+	}
+	ENDC
+	ROTREV
+	PUSHINT 64
+	DICTUSETREF
+}
+IFELSE
+SETGLOB 12
+.loc ../contracts/MultiSig24.tsol, 0
+BLKDROP 3
+
+.macro isConfirmed
+DROP
+GETGLOB 6
+THROWIFNOT 76
+.loc ../contracts/MultiSig24.tsol, 335
+LDU 32
+LDU 8
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $isConfirmed_add86222_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2682278115
+	STUR 130
+	STI 1
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	isConfirmed_add86222_internal
+.type	isConfirmed_add86222_internal, @function
+CALL $isConfirmed_add86222_internal_macro$
+
+.macro isConfirmed_add86222_internal_macro
+.loc ../contracts/MultiSig24.tsol, 151
+SWAP
+PUSHINT 1
+ROT
+LSHIFT
+UFITS 32
+AND
+NEQINT 0
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro getParameters
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 345
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $getParameters_a5ea11da_internal_macro$
+}
+PUSH S5
+PUSHCONT {
+	PUSH S7
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 98
+	STZEROES
+	REVERSE 5, 1
+	STSLICECONST xed28dde8
+	STU 8
+	STU 8
+	STU 64
+	STU 128
+	STU 8
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	BLKDROP 5
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	getParameters_a5ea11da_internal
+.type	getParameters_a5ea11da_internal, @function
+CALL $getParameters_a5ea11da_internal_macro$
+
+.macro getParameters_a5ea11da_internal_macro
+.loc ../contracts/MultiSig24.tsol, 352
+PUSHINT 5
+.loc ../contracts/MultiSig24.tsol, 353
+PUSHINT 32
+.loc ../contracts/MultiSig24.tsol, 354
+PUSHINT 86400
+.loc ../contracts/MultiSig24.tsol, 355
+PUSHINT 1000000
+.loc ../contracts/MultiSig24.tsol, 356
+GETGLOB 15
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro getTransaction
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 362
+LDU 64
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $getTransaction_b07e2a3a_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST x8ad9a08e
+	SWAP
+	UNTUPLE 11
+	REVERSE 12, 0
+	STU 64
+	STU 32
+	STU 8
+	STU 8
+	STU 256
+	STU 8
+	STSLICE
+	ROLLREV 4
+	NEWC
+	STU 128
+	STU 16
+	STREF
+	STI 1
+	STBREFR
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	getTransaction_b07e2a3a_internal
+.type	getTransaction_b07e2a3a_internal, @function
+CALL $getTransaction_b07e2a3a_internal_macro$
+
+.macro getTransaction_b07e2a3a_internal_macro
+.loc ../contracts/MultiSig24.tsol, 364
+DUP
+GETGLOB 12
+PUSHINT 64
+DICTUGET
+NULLSWAPIFNOT
+NIP
+.loc ../contracts/MultiSig24.tsol, 365
+THROWIFNOT 102
+.loc ../contracts/MultiSig24.tsol, 366
+GETGLOB 12
+PUSHINT 64
+DICTUGETREF
+PUSHCONT {
+	CTOS
+	CALLREF {
+		LDU 64
+		LDU 32
+		LDU 8
+		LDU 8
+		LDU 256
+		LDU 8
+		LDMSGADDR
+		LDREF
+		ENDS
+		CTOS
+		LDU 128
+		LDU 16
+		LDREF
+		LDI 1
+		ENDS
+		TUPLE 11
+	}
+}
+PUSHCONT {
+	PUSHINT 0
+	BLKPUSH 5, 0
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	DUP
+	PUSHREF {
+	}
+	PUSHINT 0
+	TUPLE 11
+}
+IFELSE
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro getTransactions
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 373
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $getTransactions_83920e90_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 4078055282
+	STUR 130
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	getTransactions_83920e90_internal
+.type	getTransactions_83920e90_internal, @function
+CALL $getTransactions_83920e90_internal_macro$
+
+.macro getTransactions_83920e90_internal_macro
+.loc ../contracts/MultiSig24.tsol, 373
+PUSHINT 0
+NEWDICT
+PAIR
+.loc ../contracts/MultiSig24.tsol, 180
+NOW
+PUSHINT 86400
+SUB
+UFITS 64
+LSHIFT 32
+UFITS 64
+.loc ../contracts/MultiSig24.tsol, 377
+GETGLOB 12
+PUSHINT 64
+DICTUMINREF
+NULLSWAPIFNOT
+IFREF {
+	SWAP
+	CTOS
+	CALLREF {
+		LDU 64
+		LDU 32
+		LDU 8
+		LDU 8
+		LDU 256
+		LDU 8
+		LDMSGADDR
+		LDREF
+		ENDS
+		CTOS
+		LDU 128
+		LDU 16
+		LDREF
+		LDI 1
+		ENDS
+		TUPLE 11
+	}
+	PAIR
+}
+.loc ../contracts/MultiSig24.tsol, 378
+PUSHINT 0
+DUP
+.loc ../contracts/MultiSig24.tsol, 379
+BLKPUSH 5, 0
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+PUSHINT 0
+DUP
+PUSHREF {
+}
+PUSHINT 0
+TUPLE 11
+.loc ../contracts/MultiSig24.tsol, 380
+PUSHINT 0
+.loc ../contracts/MultiSig24.tsol, 381
+PUSH S3
+ISNULL
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 381
+	DROP
+	FALSE
+}
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 381
+	PUSH2 S3, S3
+	ISNULL
+	THROWIF 63
+	UNPAIR
+	POP S3
+	POP S3
+	DROP
+	TRUE
+}
+IFELSE
+.loc ../contracts/MultiSig24.tsol, 382
+PUSHCONT {
+	DUP
+}
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 384
+	PUSH2 S2, S4
+	GREATER
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 385
+		PUSH2 S5, S1
+		CALLREF {
+			UNTUPLE 11
+			REVERSE 11, 0
+			NEWC
+			STU 64
+			STU 32
+			STU 8
+			STU 8
+			STU 256
+			STU 8
+			STSLICE
+			ROLLREV 4
+			NEWC
+			STU 128
+			STU 16
+			STREF
+			STI 1
+			STBREFR
+		}
+		ENDC
+		SWAP
+		UNPAIR
+		OVER
+		INC
+		ROLLREV 3
+		PUSHINT 32
+		DICTUSETREF
+		PAIR
+		POP S6
+		.loc ../contracts/MultiSig24.tsol, 0
+	}
+	IF
+	.loc ../contracts/MultiSig24.tsol, 389
+	PUSH S2
+	GETGLOB 12
+	PUSHINT 64
+	DICTUGETNEXT
+	NULLSWAPIFNOT
+	IFREF {
+		SWAP
+		PLDREF
+		CTOS
+		CALLREF {
+			LDU 64
+			LDU 32
+			LDU 8
+			LDU 8
+			LDU 256
+			LDU 8
+			LDMSGADDR
+			LDREF
+			ENDS
+			CTOS
+			LDU 128
+			LDU 16
+			LDREF
+			LDI 1
+			ENDS
+			TUPLE 11
+		}
+		PAIR
+	}
+	.loc ../contracts/MultiSig24.tsol, 390
+	DUP
+	ISNULL
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 390
+		FALSE
+	}
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 390
+		BLKPUSH 2, 0
+		ISNULL
+		THROWIF 63
+		UNPAIR
+		POP S4
+		POP S4
+		TRUE
+	}
+	IFELSE
+	BLKDROP2 2, 1
+	.loc ../contracts/MultiSig24.tsol, 0
+}
+WHILE
+BLKDROP 5
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro getTransactionIds
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 396
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $getTransactionIds_a2e38b54_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3499887885
+	STUR 130
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	getTransactionIds_a2e38b54_internal
+.type	getTransactionIds_a2e38b54_internal, @function
+CALL $getTransactionIds_a2e38b54_internal_macro$
+
+.macro getTransactionIds_a2e38b54_internal_macro
+.loc ../contracts/MultiSig24.tsol, 396
+PUSHINT 0
+NEWDICT
+PAIR
+.loc ../contracts/MultiSig24.tsol, 397
+PUSHINT 0
+DUP
+.loc ../contracts/MultiSig24.tsol, 401
+GETGLOB 12
+PUSHINT 64
+DICTUMINREF
+NULLSWAPIFNOT
+IFREF {
+	SWAP
+	CTOS
+	CALLREF {
+		LDU 64
+		LDU 32
+		LDU 8
+		LDU 8
+		LDU 256
+		LDU 8
+		LDMSGADDR
+		LDREF
+		ENDS
+		CTOS
+		LDU 128
+		LDU 16
+		LDREF
+		LDI 1
+		ENDS
+		TUPLE 11
+	}
+	PAIR
+}
+.loc ../contracts/MultiSig24.tsol, 402
+DUP
+ISNULL
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 402
+	FALSE
+}
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 402
+	BLKPUSH 2, 0
+	ISNULL
+	THROWIF 63
+	UNPAIR
+	DROP
+	POP S3
+	TRUE
+}
+IFELSE
+BLKDROP2 2, 1
+.loc ../contracts/MultiSig24.tsol, 403
+PUSHCONT {
+	DUP
+}
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 404
+	BLKPUSH 2, 2
+	NEWC
+	STU 64
+	SWAP
+	UNPAIR
+	OVER
+	INC
+	ROLLREV 3
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S3
+	.loc ../contracts/MultiSig24.tsol, 407
+	OVER
+	GETGLOB 12
+	PUSHINT 64
+	DICTUGETNEXT
+	NULLSWAPIFNOT
+	IFREF {
+		SWAP
+		PLDREF
+		CTOS
+		CALLREF {
+			LDU 64
+			LDU 32
+			LDU 8
+			LDU 8
+			LDU 256
+			LDU 8
+			LDMSGADDR
+			LDREF
+			ENDS
+			CTOS
+			LDU 128
+			LDU 16
+			LDREF
+			LDI 1
+			ENDS
+			TUPLE 11
+		}
+		PAIR
+	}
+	.loc ../contracts/MultiSig24.tsol, 408
+	DUP
+	ISNULL
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 408
+		FALSE
+	}
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 408
+		BLKPUSH 2, 0
+		ISNULL
+		THROWIF 63
+		UNPAIR
+		DROP
+		POP S3
+		TRUE
+	}
+	IFELSE
+	BLKDROP2 2, 1
+	.loc ../contracts/MultiSig24.tsol, 0
+}
+WHILE
+DROP2
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro getCustodians
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 421
+ENDS
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $getCustodians_f3f1e6bf_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 3674265689
+	STUR 130
+	SWAP
+	UNPAIR
+	XCHG S2
+	STU 32
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+PUSHCONT {
+	DROP
+}
+IFELSE
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.globl	getCustodians_f3f1e6bf_internal
+.type	getCustodians_f3f1e6bf_internal, @function
+CALL $getCustodians_f3f1e6bf_internal_macro$
+
+.macro getCustodians_f3f1e6bf_internal_macro
+.loc ../contracts/MultiSig24.tsol, 421
+PUSHINT 0
+NEWDICT
+PAIR
+.loc ../contracts/MultiSig24.tsol, 424
+GETGLOB 13
+PUSHPOW2 8
+DICTUMIN
+NULLSWAPIFNOT
+PUSHCONT {
+	SWAP
+	PLDU 8
+	PAIR
+}
+IF
+.loc ../contracts/MultiSig24.tsol, 425
+PUSHINT 0
+BLKPUSH 2, 0
+.loc ../contracts/MultiSig24.tsol, 428
+PUSH S3
+ISNULL
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 428
+	DROP
+	FALSE
+}
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 428
+	PUSH2 S3, S3
+	ISNULL
+	THROWIF 63
+	UNPAIR
+	POP S3
+	POP S3
+	DROP
+	TRUE
+}
+IFELSE
+.loc ../contracts/MultiSig24.tsol, 429
+PUSHCONT {
+	DUP
+}
+PUSHCONT {
+	.loc ../contracts/MultiSig24.tsol, 430
+	PUSH3 S4, S1, S2
+	PAIR
+	CALLREF {
+		UNPAIR
+		SWAP
+		NEWC
+		STU 8
+		STU 256
+	}
+	SWAP
+	UNPAIR
+	OVER
+	INC
+	ROLLREV 3
+	PUSHINT 32
+	DICTUSETB
+	PAIR
+	POP S5
+	.loc ../contracts/MultiSig24.tsol, 433
+	PUSH S2
+	GETGLOB 13
+	PUSHPOW2 8
+	DICTUGETNEXT
+	NULLSWAPIFNOT
+	PUSHCONT {
+		SWAP
+		PLDU 8
+		PAIR
+	}
+	IF
+	.loc ../contracts/MultiSig24.tsol, 434
+	DUP
+	ISNULL
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 434
+		FALSE
+	}
+	PUSHCONT {
+		.loc ../contracts/MultiSig24.tsol, 434
+		BLKPUSH 2, 0
+		ISNULL
+		THROWIF 63
+		UNPAIR
+		POP S4
+		POP S4
+		TRUE
+	}
+	IFELSE
+	BLKDROP2 2, 1
+	.loc ../contracts/MultiSig24.tsol, 0
+}
+WHILE
+BLKDROP 4
+.loc ../contracts/MultiSig24.tsol, 0
+
+.macro fallback_macro
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+
+.macro receive_macro
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/MultiSig24.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+
+.macro c4_to_c7
+PUSHROOT
+CTOS
+LDU 256 ; pubkey c4
+LDU 64 ; pubkey timestamp c4
+LDU 1 ; ctor flag
+NIP
+LDU 256
+LDU 256
+LDDICT
+LDDICT
+LDU 8
+LDU 8
+ENDS
+SETGLOB 15
+SETGLOB 14
+SETGLOB 13
+SETGLOB 12
+SETGLOB 11
+SETGLOB 10
+SETGLOB 3
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS
+SBITS
+GTINT 1
+PUSHCONT {
+	PUSHINT 0
+	PUSHROOT
+	CTOS
+	PLDDICT ; D
+	PUSHINT 0
+	DUP
+	NEWDICT
+	DUP
+	PUSHINT 0
+	DUP
+	SETGLOB 15
+	SETGLOB 14
+	SETGLOB 13
+	SETGLOB 12
+	SETGLOB 11
+	SETGLOB 10
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+}
+IFREFELSE {
+	CALL $c4_to_c7$
+}
+
+.macro c7_to_c4
+GETGLOB 15
+GETGLOB 14
+GETGLOB 13
+GETGLOB 12
+GETGLOB 11
+GETGLOB 10
+GETGLOB 3
+GETGLOB 2
+NEWC
+STU 256
+STU 64
+STONE
+STU 256
+STU 256
+STDICT
+STDICT
+STU 8
+STU 8
+ENDC
+POPROOT
+
+.macro upd_only_time_in_c4
+PUSHROOT
+CTOS
+LDU 256
+LDU 64
+NIP
+GETGLOB 3
+ROT
+NEWC
+STU 256
+STU 64
+STSLICE
+ENDC
+POPROOT
+
+.internal-alias :main_internal, 0
+.internal :main_internal
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSH S2
+CTOS
+PLDU 4
+MODPOW2 1
+IFRET
+OVER
+SEMPTY ; isEmpty
+IFJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+OVER
+LDUQ 32  ; [funcId] body' ok
+PUSHCONT {
+	DROP
+	CALLREF {
+		CALL $fallback_macro$
+	}
+	THROW 0
+}
+IFNOT
+OVER
+IFNOTJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+DROP2
+CALLREF {
+	CALL $fallback_macro$
+}
+
+.internal-alias :main_external, -1
+.internal :main_external
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+OVER
+CALLREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHPOW2 9
+	LDSLICEX ; signatureSlice msgSlice
+	DUP
+	HASHSU ; signatureSlice msgSlice hashMsgSlice
+	SWAP
+	LDU 1 ; signatureSlice hashMsgSlice hasPubkey msgSlice
+	SWAP
+	PUSHCONT {
+		LDU 256 ; signatureSlice hashMsgSlice pubkey msgSlice
+		XCHG S3
+		SWAP
+	}
+	PUSHCONT {
+		XCHG S2
+		GETGLOB 2
+	}
+	IFELSE
+	DUP
+	SETGLOB 5
+	CHKSIGNU ; msgSlice isSigned
+	THROWIFNOT 40
+}
+PUSHCONT {
+	LDU 1 ; hasPubkey msgSlice
+	SWAP
+	THROWIF 58
+}
+IFELSE
+LDU 64 ; timestamp msgSlice
+SWAP
+CALL $replay_protection_macro$
+LDU 32 ; expireAt msgSlice
+SWAP
+NOW ; msgSlice expireAt now
+GREATER ; msgSlice expireAt>now
+THROWIFNOT 57
+LDU 32 ; funcId body
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+DROP2
+CALLREF {
+	CALL $fallback_macro$
+}
+
+.macro public_function_selector
+DUP
+PUSHINT 534794467
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 182034574
+	EQUAL
+	IFJMPREF {
+		CALL $getTransaction$
+	}
+	DUP
+	PUSHINT 320701133
+	EQUAL
+	IFJMPREF {
+		CALL $submitTransaction$
+	}
+	DUP
+	PUSHINT 447168749
+	EQUAL
+	IFJMPREF {
+		CALL $confirmTransaction$
+	}
+	DUP
+	PUSHINT 534794467
+	EQUAL
+	IFJMPREF {
+		CALL $isConfirmed$
+	}
+}
+DUP
+PUSHINT 1526782041
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1290691692
+	EQUAL
+	IFJMPREF {
+		CALL $sendTransaction$
+	}
+	DUP
+	PUSHINT 1352404237
+	EQUAL
+	IFJMPREF {
+		CALL $getTransactionIds$
+	}
+	DUP
+	PUSHINT 1516506356
+	EQUAL
+	IFJMPREF {
+		CALL $acceptTransfer$
+	}
+	DUP
+	PUSHINT 1526782041
+	EQUAL
+	IFJMPREF {
+		CALL $getCustodians$
+	}
+}
+DUP
+PUSHINT 1930571634
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1813932348
+	EQUAL
+	IFJMPREF {
+		CALL $constructor$
+	}
+	DUP
+	PUSHINT 1831394792
+	EQUAL
+	IFJMPREF {
+		CALL $getParameters$
+	}
+	DUP
+	PUSHINT 1930571634
+	EQUAL
+	IFJMPREF {
+		CALL $getTransactions$
+	}
+}
+

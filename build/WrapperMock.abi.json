@@ -1,0 +1,85 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"mintToAddr_","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "mint",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"recipient","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "mintWithdraw",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"walletOwner","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "waitingUnlockAmountAdd",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"months","type":"uint16"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "sendMessage",
+			"inputs": [
+				{"name":"recipient","type":"address"},
+				{"name":"message","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "tokenRoot",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"value0","type":"address"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"randomNonce_","type":"uint256"},
+		{"key":2,"name":"name_","type":"string"},
+		{"key":3,"name":"symbol_","type":"string"},
+		{"key":4,"name":"decimals_","type":"uint8"},
+		{"key":5,"name":"TokenWalletCode_","type":"cell"},
+		{"key":6,"name":"TokenWalletPlatformCode_","type":"cell"},
+		{"key":7,"name":"TokenRootCode_","type":"cell"}
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"randomNonce_","type":"uint256"},
+		{"name":"name_","type":"string"},
+		{"name":"symbol_","type":"string"},
+		{"name":"decimals_","type":"uint8"},
+		{"name":"TokenWalletCode_","type":"cell"},
+		{"name":"TokenWalletPlatformCode_","type":"cell"},
+		{"name":"TokenRootCode_","type":"cell"},
+		{"name":"tokenRoot_","type":"address"},
+		{"name":"mintToAddr","type":"address"}
+	]
+}

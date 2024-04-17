@@ -1,0 +1,101 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"baseTokenRoot_","type":"address"},
+				{"name":"baseTokenWallet_","type":"address"},
+				{"name":"wrapTokenRoot_","type":"address"},
+				{"name":"wrapper_","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "decodeMint",
+			"inputs": [
+				{"name":"_amount","type":"uint128"},
+				{"name":"_recipient","type":"address"},
+				{"name":"_deployWalletValue","type":"uint128"},
+				{"name":"_payload","type":"cell"},
+				{"name":"_owner","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "decodeTransfer",
+			"inputs": [
+				{"name":"_amount","type":"uint128"},
+				{"name":"_recipient","type":"address"},
+				{"name":"_deployWalletValue","type":"uint128"},
+				{"name":"_payload","type":"cell"},
+				{"name":"_owner","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "decodeSendMsg",
+			"inputs": [
+				{"name":"_recipient","type":"address"},
+				{"name":"_message","type":"cell"}
+			],
+			"outputs": [
+				{"name":"value0","type":"cell"}
+			]
+		},
+		{
+			"name": "baseTokenRoot",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"baseTokenRoot","type":"address"}
+			]
+		},
+		{
+			"name": "baseTokenWallet",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"baseTokenWallet","type":"address"}
+			]
+		},
+		{
+			"name": "wrapTokenRoot",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"wrapTokenRoot","type":"address"}
+			]
+		},
+		{
+			"name": "wrapper",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"wrapper","type":"address"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"nonce_","type":"uint16"}
+	],
+	"events": [
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"nonce_","type":"uint16"},
+		{"name":"baseTokenRoot","type":"address"},
+		{"name":"baseTokenWallet","type":"address"},
+		{"name":"wrapTokenRoot","type":"address"},
+		{"name":"wrapper","type":"address"}
+	]
+}

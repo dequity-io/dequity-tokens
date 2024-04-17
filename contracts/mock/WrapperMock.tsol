@@ -1,0 +1,158 @@
+pragma ever-solidity >= 0.62.0;
+
+pragma AbiHeader expire;
+pragma AbiHeader pubkey;
+
+import "../structures/IStakerRegistry.tsol";
+import "../interfaces/IAcceptTokensBurnCallback.tsol";
+import "../interfaces/ITokenRoot.tsol";
+import "../interfaces/IWrapperWithdraw.tsol";
+import "../TokenRootUpgradeable.tsol";
+
+import "../libraries/DequityGas.tsol";
+import "../libraries/DequityErrors.tsol";
+import "../libraries/TokenMsgFlag.tsol";
+
+// import "./utils/TransferUtils.tsol";
+
+
+contract Staker is IWrapperWithdraw {
+    
+    uint256 static randomNonce_;
+    
+    string static name_;
+    string static symbol_;
+    uint8 static decimals_;
+    TvmCell static TokenWalletCode_;
+    TvmCell static TokenWalletPlatformCode_;
+    TvmCell static TokenRootCode_;
+
+    address tokenRoot_; 
+    address mintToAddr;
+
+    constructor(
+        address mintToAddr_
+        ) public {
+        tvm.accept();
+        tvm.rawReserve(_targetBalance(), 0);
+        mintToAddr = mintToAddr_;
+        _deployTokenRoot(
+        name_,
+        symbol_,
+        decimals_,
+        msg.sender
+        );
+    } 
+
+    function mint(
+        uint128 amount,
+        address recipient
+        ) external {
+            tvm.rawReserve(_targetBalance(), 0);
+            TvmCell empty;
+            ITokenRoot(tokenRoot_).mint{value: 0, flag: TokenMsgFlag.ALL_NOT_RESERVED}(
+                amount,
+                recipient,
+                DequityGas.DEPLOY_WALLET_AMOUNT,
+                msg.sender,
+                false,
+                empty
+            );
+    }
+
+    function mintWithdraw(
+        uint128 amount, 
+        address walletOwner
+    ) external override {
+        tvm.rawReserve(_targetBalance(), 0);
+        TvmCell empty;
+        ITokenRoot(tokenRoot_).mint{value: 0, flag: TokenMsgFlag.ALL_NOT_RESERVED}(
+            amount,
+            walletOwner,
+            0,
+            walletOwner,
+            false,
+            empty
+        ); 
+
+    }
+
+    function waitingUnlockAmountAdd(uint128 amount, uint16 months) external override { 
+        amount;
+        months;
+    } 
+
+    function sendMessage(
+        address recipient,
+        TvmCell message
+    ) external override {
+        tvm.rawReserve(_targetBalance(), 0);
+        recipient.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED,
+            body: message
+        });
+    }
+
+    function tokenRoot() external view responsible returns (address) {
+        return { value: 0, flag: TokenMsgFlag.REMAINING_GAS, bounce: false } tokenRoot_;
+    }
+
+    function _targetBalance() internal pure returns (uint128) {
+        return DequityGas.TARGET_STAKER_BALANCE;
+    }
+    
+    function _deployTokenRoot(
+        string name,
+        string symbol,
+        uint8 decimals,
+        address remainingGasTo
+    ) internal {
+        TvmCell stateInit = _buildTokenRootInitState(
+            name,
+            symbol,
+            decimals
+        );
+
+        tokenRoot_ = new TokenRootUpgradeable {
+            stateInit: stateInit,
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED
+        }(
+            mintToAddr, // Initial supply recipient //initialSupplyTo
+            1000 ever, // Initial supply
+            DequityGas.DEPLOY_WALLET_AMOUNT, // Deploy wallet value
+            false, // Mint disabled
+            false, // Burn by root disabled
+            false, // Burn paused
+            remainingGasTo // Remaining gas receiver
+        );
+    }
+
+    function _buildTokenRootInitState(
+        string name,
+        string symbol,
+        uint8 decimals
+    ) internal view returns (TvmCell) {
+        return tvm.buildStateInit({
+            contr: TokenRootUpgradeable,
+            varInit: {
+                randomNonce_: 0,
+                deployer_: address(this),
+                rootOwner_: address(this),
+
+                name_: name,
+                symbol_: symbol,
+                decimals_: decimals,
+
+                walletCode_: TokenWalletCode_,
+                platformCode_: TokenWalletPlatformCode_
+            },
+            pubkey: 0,
+            code: TokenRootCode_
+        }); 
+    }
+
+}
+
+

@@ -1,0 +1,43 @@
+abstract contract Upgradable {
+    /// @notice Allows to upgrade contract code and data.
+    /// @param tvc Root cell with StateInit structure of the new contract.
+    function upgrade(TvmCell tvc) public virtual {
+        require(msg.pubkey() == tvm.pubkey(), 401);
+        // Remark: only code is used from this structure.
+        TvmCell newcode = tvc.toSlice().loadRef();
+        tvm.accept();
+        // Creates a "check point" of the state variables for roll back.
+        tvm.commit();
+        // Runtime function that creates an output action that would change this
+        // smart contract code to that given by cell newcode.
+        tvm.setcode(newcode);
+        // Runtime function that replaces current code (in register C3) of the contract with newcode.
+        // It needs to call new `onCodeUpgrade` function
+        tvm.setCurrentCode(newcode);
+        // Call function onCodeUpgrade of the 'new' code.
+        onCodeUpgrade(upgradableState());
+    }
+    /// @notice This function will be called from old contract.
+    function upgradableState() internal virtual returns (TvmCell);
+    /// @notice This function will be called from old contract.
+    function onCodeUpgrade(TvmCell state) internal virtual;
+}
+
+contract Foo is Upgradable {
+    uint s_version_num;
+
+    function upgradableState() internal override returns (TvmCell) {
+        return abi.encode(
+            s_version_num
+        );
+    }
+
+    function onCodeUpgrade(TvmCell state) internal override {
+        // in new contract we added new state variable. So we must reset storage
+        tvm.resetStorage();
+        (uint version) = abi.decode(state, (uint));
+        // initialize state variables
+        s_version_num = version + 1;
+    }
+}
+

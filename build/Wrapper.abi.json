@@ -1,0 +1,189 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"_owner","type":"address"},
+				{"name":"_baseTokenRoot","type":"address"},
+				{"name":"_isUnwrapActive","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onGetAddress",
+			"inputs": [
+				{"name":"wallet","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "setOwner",
+			"inputs": [
+				{"name":"_owner","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "setUnwrapStatus",
+			"inputs": [
+				{"name":"_isUnwrapActive","type":"bool"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "sendMessage",
+			"inputs": [
+				{"name":"recipient","type":"address"},
+				{"name":"message","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onAcceptTokensBurn",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"walletOwner","type":"address"},
+				{"name":"wallet","type":"address"},
+				{"name":"remainingGasTo","type":"address"},
+				{"name":"payload","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onAcceptTokensTransfer",
+			"inputs": [
+				{"name":"tokenRoot","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender","type":"address"},
+				{"name":"senderWallet","type":"address"},
+				{"name":"remainingGasTo","type":"address"},
+				{"name":"payload","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "upgrade",
+			"inputs": [
+				{"name":"code","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "wrapperVersion",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"wrapperVersion","type":"uint32"}
+			]
+		},
+		{
+			"name": "owner",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"owner","type":"address"}
+			]
+		},
+		{
+			"name": "baseTokenRoot",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"baseTokenRoot","type":"address"}
+			]
+		},
+		{
+			"name": "baseTokenWallet",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"baseTokenWallet","type":"address"}
+			]
+		},
+		{
+			"name": "wrapTokenRoot",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"wrapTokenRoot","type":"address"}
+			]
+		},
+		{
+			"name": "isUnwrapActive",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"isUnwrapActive","type":"bool"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"randomNonce","type":"uint16"},
+		{"key":2,"name":"name","type":"string"},
+		{"key":3,"name":"symbol","type":"string"},
+		{"key":4,"name":"decimals","type":"uint8"},
+		{"key":5,"name":"TokenWalletCode","type":"cell"},
+		{"key":6,"name":"TokenWalletPlatformCode","type":"cell"},
+		{"key":7,"name":"TokenRootCode","type":"cell"}
+	],
+	"events": [
+		{
+			"name": "OwnerChange",
+			"inputs": [
+				{"name":"oldOwner","type":"address"},
+				{"name":"newOwner","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "WrapTokens",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"user","type":"address"},
+				{"name":"time","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "UnwrapTokens",
+			"inputs": [
+				{"name":"amount","type":"uint128"},
+				{"name":"user","type":"address"},
+				{"name":"time","type":"uint256"}
+			],
+			"outputs": [
+			]
+		}
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"randomNonce","type":"uint16"},
+		{"name":"name","type":"string"},
+		{"name":"symbol","type":"string"},
+		{"name":"decimals","type":"uint8"},
+		{"name":"TokenWalletCode","type":"cell"},
+		{"name":"TokenWalletPlatformCode","type":"cell"},
+		{"name":"TokenRootCode","type":"cell"},
+		{"name":"wrapperVersion","type":"uint32"},
+		{"name":"owner","type":"address"},
+		{"name":"baseTokenRoot","type":"address"},
+		{"name":"baseTokenWallet","type":"address"},
+		{"name":"wrapTokenRoot","type":"address"},
+		{"name":"isUnwrapActive","type":"bool"}
+	]
+}

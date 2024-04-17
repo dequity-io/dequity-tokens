@@ -1,0 +1,341 @@
+pragma ever-solidity >= 0.62.0;
+
+pragma AbiHeader expire;
+pragma AbiHeader pubkey;
+
+import "./structures/IStakerRegistry.tsol";
+import "./interfaces/IAcceptTokensTransferCallback.tsol";
+import "./interfaces/ITokenRoot.tsol";
+import "./interfaces/ITokenWallet.tsol";
+import "./interfaces/IWrapperWithdraw.tsol";
+import "./TokenRootUpgradeable.tsol";
+
+import "./libraries/DequityGas.tsol";
+import "./libraries/DequityErrors.tsol";
+import "./libraries/TokenMsgFlag.tsol";
+
+
+contract Staker is IStakerRegistry, IAcceptTokensTransferCallback {
+    
+    uint256 static randomNonce_;
+    uint16 static months_;
+
+    address public owner_;
+    address public LPTokenRoot_;
+    uint128 public minimalStake_;
+    uint32 public stakerVersion_;
+    
+    address public LPTokenWallet_;
+
+    uint256 public TVL = 0;
+    uint256 public amountWaitingUnlock = 0;
+
+    mapping (address => uint128) public stakedByOwner;
+
+    Registry registry;
+    // mapping for locks (userAddress => (TimeOfLockEnd => Registry {amount, timeStart, timeEnd}))
+    mapping (address => mapping (uint256 => Registry)) public reg;
+    
+    uint256 public lockTime_ = 2629743 * months_;
+
+    uint256 upgraded;
+
+    event StakerOwnerChange(address oldOwner, address newOwner);
+    event DepositStake(address stakeOwner, uint256 depositTime, uint128 amount, uint16 months);
+    event StartUnlock(address stakeOwner, uint256 unlockStartTime, uint256 unlockEndTime, uint128 amount, uint16 months);
+    event WithdrawStake(address stakeOwner, uint256 withdrawTime, uint128 amount, uint16 months);
+    
+    modifier onlyOwner {
+        require(msg.sender.value != 0 && msg.sender == owner_, DequityErrors.NOT_MY_OWNER);
+        _;
+    }
+    
+    constructor(
+        address owner,
+        address LPTokenRoot,
+        uint128 minimalStake, 
+        uint32 stakerVersion
+        ) public {
+        tvm.accept();
+        tvm.rawReserve(_targetBalance(), 0);
+
+        owner_ = owner;
+        LPTokenRoot_ = LPTokenRoot;
+        minimalStake_ = minimalStake;
+        stakerVersion_ = stakerVersion;
+
+        ITokenRoot(LPTokenRoot).deployWallet{
+                value: 0,
+                flag: TokenMsgFlag.ALL_NOT_RESERVED,
+                callback: Staker.onGetAddress
+            }(
+            address(this),
+            DequityGas.DEPLOY_WALLET_AMOUNT
+        );
+    } 
+
+    function onGetAddress(address wallet) external {
+        tvm.rawReserve(_targetBalance(), 0);
+        if (msg.sender == LPTokenRoot_) {
+            LPTokenWallet_ = wallet;
+        }
+        owner_.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+            bounce: false
+        });
+    }
+
+    function getUpgraded() external view responsible returns (uint256) {
+        return { value: 0, flag: TokenMsgFlag.REMAINING_GAS, bounce: false } 
+        upgraded;
+    }
+
+    function onAcceptTokensTransfer(
+        address tokenRoot,
+        uint128 amount,
+        address sender,
+        address senderWallet,
+        address remainingGasTo,
+        TvmCell payload
+    ) external override {
+        tvm.rawReserve(_targetBalance(), 0);
+        tokenRoot;
+        senderWallet;
+        if (msg.value >= DequityGas.MIN_TRANSFER_GAS && msg.sender == LPTokenWallet_ && amount >= minimalStake_) {
+            if (stakedByOwner.exists(sender)) {
+                uint128 exAmount = stakedByOwner[sender];
+                stakedByOwner[sender] = exAmount + amount;
+            }
+            else {
+                stakedByOwner[sender] = amount;
+            }
+            TVL += amount;
+            emit DepositStake(sender, now, amount, months_); 
+            sender.transfer({
+                value: 0,
+                flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+                bounce: false
+            });
+        }
+        else {
+            ITokenWallet(msg.sender).transfer{value: 0, flag: TokenMsgFlag.ALL_NOT_RESERVED}(
+                amount,
+                sender,
+                0,
+                remainingGasTo,
+                true,
+                payload
+            );                     
+        }        
+    }
+
+    function startUnlock(uint128 amount) public {
+        require(amount <= stakedByOwner[msg.sender], DequityErrors.AMOUNT_GREATER_THAN_STAKE);
+        require(msg.value >= DequityGas.START_UNLOCK_GAS, DequityErrors.LOW_GAS);
+        tvm.rawReserve(_targetBalance(), 0);
+        uint256 endTime = now + lockTime_;
+        reg[msg.sender].add( 
+            endTime,
+            Registry(
+                amount,
+                now,
+                endTime
+            )
+        );
+        amountWaitingUnlock += amount;
+        uint128 exStaked = stakedByOwner[msg.sender];
+        if (exStaked == amount)
+            delete stakedByOwner[msg.sender];
+        else
+            stakedByOwner[msg.sender] = exStaked - amount;
+
+        emit StartUnlock(msg.sender, now, endTime, amount, months_);
+        msg.sender.transfer({
+                value: 0,
+                flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+                bounce: false
+            });
+    }
+
+    function withdraw(uint256 timeEnd) external {
+        require(now >= timeEnd, DequityErrors.ENDTIME_LESS_THAN_TIMESTAMP); 
+        require(reg.exists(msg.sender), DequityErrors.NO_USER_IN_REG);
+        require(reg[msg.sender].exists(timeEnd), DequityErrors.NO_DATA_BY_ENDTIME);
+        require(msg.value >= DequityGas.WITHDRAW_GAS, DequityErrors.LOW_GAS_WITHDRAW);
+
+        tvm.rawReserve(_targetBalance(), 0);
+        (uint128 amount,,) = reg[msg.sender][timeEnd].unpack();
+        require(TVL >= amount, DequityErrors.AMOUNT_GREATER_THAN_TVL);
+        require(amountWaitingUnlock >= amount, DequityErrors.AMOUNT_GREATER_THAN_TOTALUNLOCK);
+        
+        delete reg[msg.sender][timeEnd];
+        if (reg[msg.sender].empty()) delete reg[msg.sender];
+        
+        TVL -=amount;
+        amountWaitingUnlock -= amount;
+
+        emit WithdrawStake(msg.sender, now, amount, months_);
+
+        TvmCell empty;
+        ITokenWallet(LPTokenWallet_).transfer{value: 0, flag: TokenMsgFlag.ALL_NOT_RESERVED}(
+            amount,
+            msg.sender,
+            0,
+            msg.sender,
+            true,
+            empty
+        );     
+    }
+
+    function getLockedAmount(address user) external view responsible returns (uint128) {
+        require(stakedByOwner.exists(user), DequityErrors.USER_HAS_NO_STAKE);
+        return { value: 0, flag: TokenMsgFlag.REMAINING_GAS, bounce: false } 
+        (stakedByOwner[user]);
+    }
+
+    function isReadyAnyWithdraw(address user) external view responsible returns (bool) {
+        require(reg.exists(user), DequityErrors.NO_USER_IN_REG);
+        optional(uint256, Registry) lockData = reg[user].min();
+        (uint256 timeEnd, ) = lockData.get();
+        return { value: 0, flag: TokenMsgFlag.REMAINING_GAS, bounce: false } 
+        (now >= timeEnd); 
+    }
+
+    function getClosestUnlock(address user) external view responsible returns (Registry) {
+        require(reg.exists(user), DequityErrors.NO_USER_IN_REG);
+        optional(uint256, Registry) lockData = reg[user].min();
+        ( , Registry lockParams) = lockData.get();
+        return { value: 0, flag: TokenMsgFlag.REMAINING_GAS, bounce: false } 
+        lockParams; 
+    }    
+
+    function getRegData(address user) external view responsible returns (mapping (uint256 => Registry)) {
+        require(reg.exists(user), DequityErrors.NO_USER_IN_REG);
+        return { value: 0, flag: TokenMsgFlag.REMAINING_GAS, bounce: false } 
+        reg[user];
+    }
+
+    function setOwner(address _owner) external onlyOwner {
+        tvm.rawReserve(_targetBalance(), 0);
+        address ancestor = owner_;
+        owner_ = _owner;
+        emit StakerOwnerChange(ancestor, _owner);
+        ancestor.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+            bounce: false
+        });
+    }
+
+    function setMinStake(uint128 amount) external onlyOwner {
+        tvm.rawReserve(_targetBalance(), 0);
+        minimalStake_ = amount;
+        msg.sender.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+            bounce: false
+        });
+    }
+
+    function setLPToken(address LPTokenRoot, address LPTokenWallet) external onlyOwner {
+        require(LPTokenRoot.value != 0 && LPTokenWallet.value != 0, DequityErrors.EMPTY_ADDRESS);
+        tvm.rawReserve(_targetBalance(), 0);
+        LPTokenRoot_ = LPTokenRoot;
+        LPTokenWallet_ = LPTokenWallet;
+        msg.sender.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+            bounce: false
+        });
+    }
+
+    function setLockTime(uint256 lockTime) external onlyOwner {
+        require(lockTime <= lockTime_, DequityErrors.LOCKTIME_LONGER_THAN_EXISTING);
+        tvm.rawReserve(_targetBalance(), 0);
+        lockTime_ = lockTime;
+        msg.sender.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+            bounce: false
+        });
+    }
+
+    function _targetBalance() internal pure returns (uint128) {
+        return DequityGas.TARGET_STAKER_BALANCE;
+    }
+
+    function sendMessage(
+        address recipient,
+        TvmCell message
+    ) external onlyOwner{
+        tvm.rawReserve(_targetBalance(), 0);
+        recipient.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED,
+            body: message
+        });
+    }
+
+    function upgrade(TvmCell code) external onlyOwner {
+        TvmCell sData = abi.encode(mapping(address => uint128)(stakedByOwner));
+        TvmCell rData = abi.encode(mapping (address => mapping (uint256 => Registry))(reg));
+        TvmCell adrData = abi.encode(
+            address(owner_), 
+            address(LPTokenRoot_), 
+            address(LPTokenWallet_)
+        );
+        TvmCell numData = abi.encode(
+            uint16(months_),
+            uint32(stakerVersion_),
+            uint128(minimalStake_),
+            uint256(randomNonce_),
+            uint256(TVL),
+            uint256(amountWaitingUnlock),
+            uint256(lockTime_)
+        );
+
+        TvmBuilder builder; 
+        builder.store(sData);
+        builder.store(rData);
+        builder.store(adrData);
+        builder.store(numData);
+        TvmCell data = builder.toCell();
+
+        tvm.setcode(code);
+        tvm.setCurrentCode(code);
+        onCodeUpgrade(data);
+    }
+
+    function onCodeUpgrade(TvmCell data) private {
+        tvm.resetStorage();
+        TvmSlice slice = data.toSlice();
+        (TvmCell sData, TvmCell rData, TvmCell adrData, TvmCell numData) = slice.decode(TvmCell, TvmCell, TvmCell, TvmCell); 
+
+        (stakedByOwner) = abi.decode(sData, (mapping(address => uint128)));
+        (reg) = abi.decode(rData, mapping (address => mapping (uint256 => Registry))); 
+        (owner_, LPTokenRoot_, LPTokenWallet_) = abi.decode(adrData,(
+            address, address, address
+        ));
+        (
+            months_,
+            stakerVersion_,
+            minimalStake_,
+            randomNonce_,
+            TVL,
+            amountWaitingUnlock,
+            lockTime_
+        ) = abi.decode(numData, (
+            uint16,
+            uint32,
+            uint128,
+            uint256,
+            uint256,
+            uint256,
+            uint256 
+        ));
+        stakerVersion_+=1;
+        upgraded = 123456;
+    }
+
+}

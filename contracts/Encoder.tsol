@@ -1,0 +1,73 @@
+pragma ever-solidity >= 0.62.0;
+pragma AbiHeader expire;
+pragma AbiHeader pubkey;
+
+import "./interfaces/ITokenRoot.tsol";
+import "./interfaces/ITokenWallet.tsol";
+import "./interfaces/IWrapperWithdraw.tsol";
+
+contract Encoder {
+    uint16 static nonce_;
+    address public baseTokenRoot;
+    address public baseTokenWallet;
+    address public wrapTokenRoot;
+    address public wrapper;
+
+    constructor(
+        address baseTokenRoot_,
+        address baseTokenWallet_,
+        address wrapTokenRoot_,
+        address wrapper_
+    ) public {
+        tvm.accept();
+        baseTokenRoot = baseTokenRoot_;
+        baseTokenWallet = baseTokenWallet_;
+        wrapTokenRoot = wrapTokenRoot_;
+        wrapper = wrapper_;
+    } 
+
+    function decodeMint(
+        uint128 _amount,
+        address _recipient,
+        uint128 _deployWalletValue,
+        TvmCell _payload,
+        address _owner
+    ) public view returns (TvmCell) {
+        return tvm.encodeBody(ITokenRoot(wrapTokenRoot).mint, 
+        _amount,
+        _recipient,
+        _deployWalletValue,
+        _owner,
+        true,
+        _payload
+        );
+    }
+
+    function decodeTransfer(
+        uint128 _amount,
+        address _recipient,
+        uint128 _deployWalletValue,
+        TvmCell _payload,
+        address _owner
+    ) public view returns (TvmCell) {
+        return tvm.encodeBody(ITokenWallet(baseTokenWallet).transfer, 
+        _amount,
+        _recipient,
+        _deployWalletValue,
+        _owner,
+        true,
+        _payload
+        );
+    }
+
+    function decodeSendMsg(
+        address _recipient,
+        TvmCell _message
+    ) public view returns (TvmCell) {
+        return tvm.encodeBody(IWrapperWithdraw(wrapper).sendMessage, 
+        _recipient,
+        _message
+        );
+    }
+
+}

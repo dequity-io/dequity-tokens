@@ -1,0 +1,298 @@
+pragma ever-solidity >= 0.62.0;
+
+pragma AbiHeader expire;
+pragma AbiHeader pubkey;
+
+import "./interfaces/IAcceptTokensBurnCallback.tsol";
+import "./interfaces/IAcceptTokensTransferCallback.tsol";
+import "./interfaces/ITokenRoot.tsol";
+import "./interfaces/ITokenWallet.tsol";
+import "./TokenRootUpgradeable.tsol";
+
+import "./libraries/DequityGas.tsol";
+import "./libraries/DequityErrors.tsol";
+import "./libraries/TokenMsgFlag.tsol";
+
+contract Wrapper is 
+IAcceptTokensBurnCallback, 
+IAcceptTokensTransferCallback
+{
+    uint16 static randomNonce;
+    string static name;
+    string static symbol;
+    uint8 static decimals;
+    TvmCell static TokenWalletCode;
+    TvmCell static TokenWalletPlatformCode;
+    TvmCell static TokenRootCode;
+
+    uint32 public wrapperVersion;
+
+    address public owner;
+    address public baseTokenRoot;
+    address public baseTokenWallet;
+    address public wrapTokenRoot;
+    bool public isUnwrapActive;
+
+    event OwnerChange(address oldOwner, address newOwner);
+    event WrapTokens(uint128 amount, address user, uint256 time);
+    event UnwrapTokens(uint128 amount, address user, uint256 time);
+    
+   
+    constructor(
+        address _owner,
+        address _baseTokenRoot,
+        bool _isUnwrapActive
+        ) public {
+        tvm.accept();
+        baseTokenRoot = _baseTokenRoot;
+        owner = _owner;
+        isUnwrapActive = _isUnwrapActive;
+        deployTokenRoot(
+            name,
+            symbol,
+            decimals,
+            address(this)
+        );
+        ITokenRoot(_baseTokenRoot).deployWallet{
+                value: DequityGas.TO_ROOT_FOR_DEPLOY_WALLET_AMOUNT,
+                callback: Wrapper.onGetAddress
+            }(
+            address(this),
+            DequityGas.DEPLOY_WALLET_AMOUNT
+        );    
+    }
+
+    modifier onlyOwner {
+        require(msg.sender.value != 0 && msg.sender == owner, DequityErrors.NOT_MY_OWNER);
+        _;
+    }
+
+    function onGetAddress(address wallet) public {
+        tvm.rawReserve(_targetBalance(), 0);
+        if (msg.sender == baseTokenRoot) {
+            baseTokenWallet = wallet;
+            owner.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED
+           });
+        }     
+    }
+
+    function setOwner(address _owner) public onlyOwner {
+        tvm.rawReserve(_targetBalance(), 0);
+        address ancestor = owner;
+        owner = _owner;
+        emit OwnerChange(ancestor, _owner);
+        ancestor.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED
+        });
+    }
+
+    function setUnwrapStatus(bool _isUnwrapActive) external onlyOwner {
+        tvm.rawReserve(_targetBalance(), 0);
+        isUnwrapActive = _isUnwrapActive;
+        msg.sender.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+            bounce: false
+        });
+    }
+
+    function sendMessage(
+        address recipient,
+        TvmCell message
+    ) external view onlyOwner {
+        tvm.rawReserve(_targetBalance(), 0);
+        recipient.transfer({
+            value: 0,
+            flag: TokenMsgFlag.ALL_NOT_RESERVED,
+            body: message
+        });
+    }
+
+    function onAcceptTokensBurn(
+        uint128 amount,
+        address walletOwner,
+        address wallet,
+        address remainingGasTo,
+        TvmCell payload
+    ) external override {
+        tvm.rawReserve(_targetBalance(), 0);
+        wallet; 
+        remainingGasTo;
+        if (msg.value >= DequityGas.MIN_TRANSFER_GAS && msg.sender == wrapTokenRoot && isUnwrapActive) {
+            emit UnwrapTokens(amount, walletOwner, now);
+            ITokenWallet(baseTokenWallet).transfer{
+                    value: 0,
+                    flag: TokenMsgFlag.ALL_NOT_RESERVED
+                }(
+            amount,
+            walletOwner,
+            0,
+            walletOwner,
+            true,
+            payload
+            );
+        }
+        else if (msg.sender == wrapTokenRoot){
+            ITokenRoot(wrapTokenRoot).mint{
+                    value:  0,
+                    flag: TokenMsgFlag.ALL_NOT_RESERVED
+                }(
+            amount,
+            walletOwner,
+            0,
+            walletOwner,
+            true,
+            payload
+            );
+        }
+        else
+        {
+            remainingGasTo.transfer({
+                value: 0,
+                flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+                bounce: false
+            }); 
+        }   
+    }
+
+    function onAcceptTokensTransfer(
+        address tokenRoot,
+        uint128 amount,
+        address sender,
+        address senderWallet,
+        address remainingGasTo,
+        TvmCell payload
+    ) external override {
+        tvm.rawReserve(_targetBalance(), 0);
+        tokenRoot;
+        senderWallet;
+        if (msg.value >= DequityGas.MIN_TRANSFER_GAS && msg.sender == baseTokenWallet) {
+            emit WrapTokens(amount, sender, now);
+            ITokenRoot(wrapTokenRoot).mint{
+                    value:  0,
+                    flag: TokenMsgFlag.ALL_NOT_RESERVED
+                }(
+            amount,
+            sender,
+            TokenGas.TARGET_WALLET_BALANCE,
+            remainingGasTo,
+            true,
+            payload
+            );
+        }
+        else if (sender == owner) {
+            remainingGasTo.transfer({
+                value: 0,
+                flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS,
+                bounce: false
+            });
+        }
+        else {
+            ITokenWallet(msg.sender).transfer{
+                value: 0, 
+                flag: TokenMsgFlag.ALL_NOT_RESERVED + TokenMsgFlag.IGNORE_ERRORS
+                }(
+                amount,
+                sender,
+                0,
+                remainingGasTo,
+                false,
+                payload
+            );
+        }
+    }
+
+    function _targetBalance() internal pure returns (uint128) {
+        return DequityGas.TARGET_STAKER_BALANCE;
+    }
+
+    function deployTokenRoot(
+        string _name,
+        string _symbol,
+        uint8 _decimals,
+        address remainingGasTo
+    ) internal {
+        TvmCell stateInit = _buildTokenRootInitState(
+            _name,
+            _symbol,
+            _decimals
+        );
+        wrapTokenRoot = new TokenRootUpgradeable {
+                stateInit: stateInit,
+                value: TokenGas.DEPLOY_TOKEN_ROOT_VALUE,
+                flag: TokenMsgFlag.SENDER_PAYS_FEES
+            }(
+            address(this), // Initial supply recipient //initialSupplyTo
+            0, // Initial supply
+            0, // Deploy wallet value
+            false, // Mint disabled
+            false, // Burn by root disabled
+            false, // Burn paused
+            remainingGasTo // Remaining gas receiver
+        );
+    }
+
+    function _buildTokenRootInitState(
+        string name_,
+        string symbol_,
+        uint8 decimals_
+    ) internal view returns (TvmCell) {
+        return tvm.buildStateInit({
+            contr: TokenRootUpgradeable,
+            varInit: {
+            randomNonce_: 0,
+            deployer_: address(this),
+            rootOwner_: address(this),
+
+            name_: name_,
+            symbol_: symbol_,
+            decimals_: decimals_,
+
+            walletCode_: TokenWalletCode,
+            platformCode_: TokenWalletPlatformCode
+        },
+            pubkey: 0,
+            code: TokenRootCode
+        });
+
+    }
+
+    function upgrade(TvmCell code) external onlyOwner {
+        TvmCell numData = abi.encode(
+            uint32(wrapperVersion)
+        );
+        TvmCell adrData = abi.encode(
+            address(owner), 
+            address(baseTokenRoot), 
+            address(baseTokenWallet),
+            address(wrapTokenRoot)
+        );
+        TvmCell boolData = abi.encode(bool(isUnwrapActive));
+        TvmBuilder builder; 
+        builder.store(numData);
+        builder.store(adrData);
+        builder.store(boolData);
+        TvmCell data = builder.toCell();
+
+        tvm.setcode(code);
+        tvm.setCurrentCode(code);
+        onCodeUpgrade(data);
+    }
+
+    function onCodeUpgrade(TvmCell data) private {
+        TvmSlice slice = data.toSlice();
+        (   TvmCell numData, 
+            TvmCell adrData, 
+            TvmCell boolData
+            ) = slice.decode(TvmCell, TvmCell, TvmCell);
+        (wrapperVersion) = abi.decode(numData, (uint32));
+        (owner, baseTokenRoot, baseTokenWallet, wrapTokenRoot) = 
+            abi.decode(adrData, (address, address, address, address));
+        (isUnwrapActive) = abi.decode(boolData, (bool)); 
+        wrapperVersion += 1;
+    }
+}
+

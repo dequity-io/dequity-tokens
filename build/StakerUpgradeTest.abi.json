@@ -1,0 +1,302 @@
+{
+	"ABI version": 2,
+	"version": "2.2",
+	"header": ["pubkey", "time", "expire"],
+	"functions": [
+		{
+			"name": "constructor",
+			"inputs": [
+				{"name":"owner","type":"address"},
+				{"name":"LPTokenRoot","type":"address"},
+				{"name":"minimalStake","type":"uint128"},
+				{"name":"stakerVersion","type":"uint32"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "onGetAddress",
+			"inputs": [
+				{"name":"wallet","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getUpgraded",
+			"inputs": [
+				{"name":"answerId","type":"uint32"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint256"}
+			]
+		},
+		{
+			"name": "onAcceptTokensTransfer",
+			"inputs": [
+				{"name":"tokenRoot","type":"address"},
+				{"name":"amount","type":"uint128"},
+				{"name":"sender","type":"address"},
+				{"name":"senderWallet","type":"address"},
+				{"name":"remainingGasTo","type":"address"},
+				{"name":"payload","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "startUnlock",
+			"inputs": [
+				{"name":"amount","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "withdraw",
+			"inputs": [
+				{"name":"timeEnd","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "getLockedAmount",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"user","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"uint128"}
+			]
+		},
+		{
+			"name": "isReadyAnyWithdraw",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"user","type":"address"}
+			],
+			"outputs": [
+				{"name":"value0","type":"bool"}
+			]
+		},
+		{
+			"name": "getClosestUnlock",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"user","type":"address"}
+			],
+			"outputs": [
+				{"components":[{"name":"amount","type":"uint128"},{"name":"timeStart","type":"uint256"},{"name":"timeEnd","type":"uint256"}],"name":"value0","type":"tuple"}
+			]
+		},
+		{
+			"name": "getRegData",
+			"inputs": [
+				{"name":"answerId","type":"uint32"},
+				{"name":"user","type":"address"}
+			],
+			"outputs": [
+				{"components":[{"name":"amount","type":"uint128"},{"name":"timeStart","type":"uint256"},{"name":"timeEnd","type":"uint256"}],"name":"value0","type":"map(uint256,tuple)"}
+			]
+		},
+		{
+			"name": "setOwner",
+			"inputs": [
+				{"name":"_owner","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "setMinStake",
+			"inputs": [
+				{"name":"amount","type":"uint128"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "setLPToken",
+			"inputs": [
+				{"name":"LPTokenRoot","type":"address"},
+				{"name":"LPTokenWallet","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "setLockTime",
+			"inputs": [
+				{"name":"lockTime","type":"uint256"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "sendMessage",
+			"inputs": [
+				{"name":"recipient","type":"address"},
+				{"name":"message","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "upgrade",
+			"inputs": [
+				{"name":"code","type":"cell"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "owner_",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"owner_","type":"address"}
+			]
+		},
+		{
+			"name": "LPTokenRoot_",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"LPTokenRoot_","type":"address"}
+			]
+		},
+		{
+			"name": "minimalStake_",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"minimalStake_","type":"uint128"}
+			]
+		},
+		{
+			"name": "stakerVersion_",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"stakerVersion_","type":"uint32"}
+			]
+		},
+		{
+			"name": "LPTokenWallet_",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"LPTokenWallet_","type":"address"}
+			]
+		},
+		{
+			"name": "TVL",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"TVL","type":"uint256"}
+			]
+		},
+		{
+			"name": "amountWaitingUnlock",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"amountWaitingUnlock","type":"uint256"}
+			]
+		},
+		{
+			"name": "stakedByOwner",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"stakedByOwner","type":"map(address,uint128)"}
+			]
+		},
+		{
+			"name": "reg",
+			"inputs": [
+			],
+			"outputs": [
+				{"components":[{"name":"amount","type":"uint128"},{"name":"timeStart","type":"uint256"},{"name":"timeEnd","type":"uint256"}],"name":"reg","type":"map(address,map(uint256,tuple))"}
+			]
+		},
+		{
+			"name": "lockTime_",
+			"inputs": [
+			],
+			"outputs": [
+				{"name":"lockTime_","type":"uint256"}
+			]
+		}
+	],
+	"data": [
+		{"key":1,"name":"randomNonce_","type":"uint256"},
+		{"key":2,"name":"months_","type":"uint16"}
+	],
+	"events": [
+		{
+			"name": "StakerOwnerChange",
+			"inputs": [
+				{"name":"oldOwner","type":"address"},
+				{"name":"newOwner","type":"address"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "DepositStake",
+			"inputs": [
+				{"name":"stakeOwner","type":"address"},
+				{"name":"depositTime","type":"uint256"},
+				{"name":"amount","type":"uint128"},
+				{"name":"months","type":"uint16"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "StartUnlock",
+			"inputs": [
+				{"name":"stakeOwner","type":"address"},
+				{"name":"unlockStartTime","type":"uint256"},
+				{"name":"unlockEndTime","type":"uint256"},
+				{"name":"amount","type":"uint128"},
+				{"name":"months","type":"uint16"}
+			],
+			"outputs": [
+			]
+		},
+		{
+			"name": "WithdrawStake",
+			"inputs": [
+				{"name":"stakeOwner","type":"address"},
+				{"name":"withdrawTime","type":"uint256"},
+				{"name":"amount","type":"uint128"},
+				{"name":"months","type":"uint16"}
+			],
+			"outputs": [
+			]
+		}
+	],
+	"fields": [
+		{"name":"_pubkey","type":"uint256"},
+		{"name":"_timestamp","type":"uint64"},
+		{"name":"_constructorFlag","type":"bool"},
+		{"name":"randomNonce_","type":"uint256"},
+		{"name":"months_","type":"uint16"},
+		{"name":"owner_","type":"address"},
+		{"name":"LPTokenRoot_","type":"address"},
+		{"name":"minimalStake_","type":"uint128"},
+		{"name":"stakerVersion_","type":"uint32"},
+		{"name":"LPTokenWallet_","type":"address"},
+		{"name":"TVL","type":"uint256"},
+		{"name":"amountWaitingUnlock","type":"uint256"},
+		{"name":"stakedByOwner","type":"map(address,uint128)"},
+		{"components":[{"name":"amount","type":"uint128"},{"name":"timeStart","type":"uint256"},{"name":"timeEnd","type":"uint256"}],"name":"registry","type":"tuple"},
+		{"components":[{"name":"amount","type":"uint128"},{"name":"timeStart","type":"uint256"},{"name":"timeEnd","type":"uint256"}],"name":"reg","type":"map(address,map(uint256,tuple))"},
+		{"name":"lockTime_","type":"uint256"},
+		{"name":"upgraded","type":"uint256"}
+	]
+}

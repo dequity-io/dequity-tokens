@@ -1,0 +1,10 @@
+pragma ever-solidity >= 0.62.0;
+
+interface IStakerRegistry {
+    struct Registry {
+        uint128 amount;
+        uint256 timeStart;
+        uint256 timeEnd;
+    }
+}
+

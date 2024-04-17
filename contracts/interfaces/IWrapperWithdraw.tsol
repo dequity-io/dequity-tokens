@@ -1,0 +1,17 @@
+pragma ever-solidity >= 0.62.0;
+
+interface IWrapperWithdraw {
+
+    function mintWithdraw(
+        uint128 amount, 
+        address walletOwner
+    ) external;
+
+    function waitingUnlockAmountAdd(uint128 amount, uint16 months) external;
+
+     function sendMessage(
+        address recipient,
+        TvmCell message
+    ) external;
+
+}

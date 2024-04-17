@@ -1,0 +1,53 @@
+pragma ever-solidity >= 0.62.0;
+
+library DequityErrors {
+
+    uint16 constant NOT_MY_OWNER = 1021;
+    uint16 constant WRONG_ROOT = 1022;
+    uint16 constant EMPTY_ADDRESS = 1023;
+    uint16 constant NOT_MY_WALLET = 1024;
+
+    uint16 constant ZERO_PUBLIC_KEY = 1041;
+    uint16 constant NOT_ZERO_PUBLIC_KEY = 1042;
+    
+    uint16 constant LOW_GAS_WITHDRAW = 1050;
+    uint16 constant LOW_GAS = 1060;
+
+    uint16 constant NO_USER_IN_REG = 1060;
+    uint16 constant NO_DATA_BY_ENDTIME = 1061;
+    uint16 constant USER_HAS_NO_STAKE = 1062;
+    uint16 constant ENDTIME_LESS_THAN_TIMESTAMP = 1063;
+    uint16 constant LOCK_NOT_END = 1070;
+    uint16 constant NOT_ACTIVE_STAKER = 1080;
+    uint16 constant AMOUNT_GREATER_THAN_STAKE = 1090;
+    uint16 constant AMOUNT_GREATER_THAN_TVL = 1091;
+    uint16 constant AMOUNT_GREATER_THAN_TOTALUNLOCK = 1092;
+    uint16 constant LOCKTIME_LONGER_THAN_EXISTING = 1100;
+
+    // uint16 constant NOT_OWNER = 1000;
+    // uint16 constant NOT_ROOT = 1010;
+    // uint16 constant WRONG_ROOT_OWNER = 1020;
+    // uint16 constant WRONG_WALLET_OWNER = 1021;
+    // uint16 constant WRONG_RECIPIENT = 1030;
+    // uint16 constant NON_ZERO_PUBLIC_KEY = 1040;
+    // uint16 constant WRONG_AMOUNT = 1050;
+    // uint16 constant NOT_ENOUGH_BALANCE = 1060;
+    // uint16 constant NON_EMPTY_BALANCE = 1070;
+    // uint16 constant SENDER_IS_NOT_VALID_WALLET = 1100;
+
+    // uint16 constant RECIPIENT_ALLOWS_ONLY_NOTIFIABLE = 1200;
+
+    
+    // uint16 constant DEPLOY_WALLET_VALUE_TOO_LOW = 2010;
+
+    // uint16 constant MINT_DISABLED = 2100;
+
+    // uint16 constant BURN_DISABLED = 2200;
+    // uint16 constant BURN_BY_ROOT_DISABLED = 2210;
+
+    // uint8 constant NOT_MY_OWNER = 100;
+    // uint8 constant NOT_PENDING_OWNER = 101;
+    // uint8 constant NOT_MY_STORAGE = 102;
+    // uint8 constant IMAGE_ALREADY_SET = 103;
+    // uint8 constant VALUE_TOO_LOW = 105;
+}

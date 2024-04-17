@@ -1,0 +1,2545 @@
+.version sol 0.62.0
+
+.macro constructor
+DROP
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+GETGLOB 6
+THROWIF 51
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 128
+LDU 32
+ENDS
+.loc ../contracts/Staker.tsol, 57
+ACCEPT
+.loc ../contracts/Staker.tsol, 58
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 60
+ROLL 3
+SETGLOB 12
+.loc ../contracts/Staker.tsol, 61
+PUSH S2
+SETGLOB 13
+.loc ../contracts/Staker.tsol, 62
+SWAP
+SETGLOB 14
+.loc ../contracts/Staker.tsol, 63
+SETGLOB 15
+.loc ../contracts/Staker.tsol, 65
+PUSHINT 300000000
+MYADDR
+ROT
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 1
+STUR 111
+ROTREV
+PUSHSLICE x31edd4c73f5a0dbc
+NEWC
+STSLICE
+STSLICE
+STU 128
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro onGetAddress
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 75
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $onGetAddress_e4ed19af_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro onGetAddress_e4ed19af_internal_macro
+.loc ../contracts/Staker.tsol, 76
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 77
+GETGLOB 9
+GETGLOB 13
+SDEQ
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 78
+	DUP
+	SETGLOB 16
+	.loc ../contracts/Staker.tsol, 0
+}
+IF
+.loc ../contracts/Staker.tsol, 80
+DROP
+GETGLOB 12
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+ADDCONST 2
+UFITS 8
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+
+.macro onAcceptTokensTransfer
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 87
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDU 128
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $onAcceptTokensTransfer_e63f2284_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro onAcceptTokensTransfer_e63f2284_internal_macro
+.loc ../contracts/Staker.tsol, 95
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 96
+BLKDROP2 1, 5
+.loc ../contracts/Staker.tsol, 97
+BLKDROP2 1, 2
+.loc ../contracts/Staker.tsol, 98
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 1000000000
+GEQ
+GETGLOB 9
+GETGLOB 16
+SDEQ
+PUSH S5
+GETGLOB 14
+GEQ
+AND
+AND
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 99
+	PUSH S2
+	GETGLOB 19
+	PUSHINT 267
+	DICTGET
+	NULLSWAPIFNOT
+	NIP
+	PUSHCONT {
+		.loc ../contracts/Staker.tsol, 100
+		PUSH S2
+		GETGLOB 19
+		PUSHINT 267
+		DICTGET
+		ZEROSWAPIFNOT
+		PUSHCONT {
+			PLDU 128
+		}
+		IF
+		.loc ../contracts/Staker.tsol, 101
+		PUSH S4
+		ADD
+		UFITS 128
+		PUSH S3
+		GETGLOB 19
+		ROT
+	}
+	PUSHCONT {
+		.loc ../contracts/Staker.tsol, 104
+		PUSH S2
+		GETGLOB 19
+		PUSH S5
+	}
+	IFELSE
+	NEWC
+	STU 128
+	ROTREV
+	PUSHINT 267
+	DICTSETB
+	SETGLOB 19
+	.loc ../contracts/Staker.tsol, 106
+	GETGLOB 17
+	PUSH S4
+	ADD
+	SETGLOB 17
+	.loc ../contracts/Staker.tsol, 107
+	GETGLOB 11
+	PUSH S4
+	NOW
+	PUSH S5
+	PUSHSLICE xc0000000000000000000000001
+	NEWC
+	STSLICE
+	ROLLREV 4
+	NEWC
+	STSLICECONST x481b27a5
+	STSLICE
+	STU 256
+	STU 128
+	STU 16
+	STBREFR
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+	.loc ../contracts/Staker.tsol, 108
+	PUSH S2
+	NEWC
+	STSLICECONST x42_
+	STSLICE
+	PUSHINT 111
+	STZEROES
+}
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 115
+	DUP
+	FALSE
+	PUSH S3
+	PUSHINT 0
+	PUSH2 S6, S7
+	GETGLOB 9
+	NEWC
+	STSLICECONST x62_
+	STSLICE
+	PUSHINT 1
+	STUR 111
+	ROLLREV 6
+	NEWC
+	STSLICECONST x73e22143
+	STU 128
+	STSLICE
+	STU 128
+	ROLLREV 3
+	NEWC
+	STSLICE
+	STI 1
+	STREF
+	STBREFR
+	STBREFR
+}
+IFELSE
+ENDC
+PUSHPOW2 7
+ADDCONST 2
+UFITS 8
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+BLKDROP 4
+
+.macro startUnlock
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 129
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 128
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $startUnlock_11f66f84_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.globl	startUnlock_11f66f84_internal
+.type	startUnlock_11f66f84_internal, @function
+CALL $startUnlock_11f66f84_internal_macro$
+
+.macro startUnlock_11f66f84_internal_macro
+.loc ../contracts/Staker.tsol, 130
+DUP
+GETGLOB 9
+GETGLOB 19
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDU 128
+}
+IF
+LEQ
+THROWIFNOT 1090
+.loc ../contracts/Staker.tsol, 131
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 500000000
+GEQ
+THROWIFNOT 1060
+.loc ../contracts/Staker.tsol, 132
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 133
+NOW
+GETGLOB 22
+ADD
+.loc ../contracts/Staker.tsol, 134
+GETGLOB 9
+GETGLOB 21
+DUP2
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSH S4
+NOW
+PUSH S5
+TRIPLE
+CALLREF {
+	UNTRIPLE
+	XCHG S2
+	NEWC
+	STU 128
+	STU 256
+	STU 256
+}
+PUSH S4
+ROT
+PUSHPOW2 8
+DICTUADDB
+DROP
+NEWC
+STDICT
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 21
+.loc ../contracts/Staker.tsol, 142
+GETGLOB 18
+PUSH S2
+ADD
+SETGLOB 18
+.loc ../contracts/Staker.tsol, 143
+GETGLOB 9
+GETGLOB 19
+PUSHINT 267
+DICTGET
+ZEROSWAPIFNOT
+PUSHCONT {
+	PLDU 128
+}
+IF
+.loc ../contracts/Staker.tsol, 144
+PUSH2 S0, S2
+EQUAL
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 145
+	GETGLOB 9
+	GETGLOB 19
+	PUSHINT 267
+	DICTDEL
+	DROP
+}
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 147
+	PUSH2 S0, S2
+	SUB
+	UFITS 128
+	GETGLOB 9
+	GETGLOB 19
+	ROT
+	NEWC
+	STU 128
+	ROTREV
+	PUSHINT 267
+	DICTSETB
+}
+IFELSE
+SETGLOB 19
+.loc ../contracts/Staker.tsol, 149
+DROP
+GETGLOB 11
+ROTREV
+NOW
+GETGLOB 9
+PUSHSLICE xc0000000000000000000000001
+NEWC
+STSLICE
+ROLLREV 5
+NEWC
+STSLICECONST x757b8870
+STSLICE
+STU 256
+ROLLREV 3
+NEWC
+STU 256
+STU 128
+STU 16
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 150
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+ADDCONST 2
+UFITS 8
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+
+.macro withdraw
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 157
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $withdraw_2e1a7d4d_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro withdraw_2e1a7d4d_internal_macro
+.loc ../contracts/Staker.tsol, 158
+NOW
+OVER
+GEQ
+THROWIFNOT 1063
+.loc ../contracts/Staker.tsol, 159
+GETGLOB 9
+GETGLOB 21
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+THROWIFNOT 1060
+.loc ../contracts/Staker.tsol, 160
+DUP
+GETGLOB 9
+GETGLOB 21
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHPOW2 8
+DICTUGET
+NULLSWAPIFNOT
+NIP
+THROWIFNOT 1061
+.loc ../contracts/Staker.tsol, 161
+DEPTH
+ADDCONST -2
+PICK
+PUSHINT 2000000000
+GEQ
+THROWIFNOT 1050
+.loc ../contracts/Staker.tsol, 163
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 164
+DUP
+GETGLOB 9
+GETGLOB 21
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+PUSHPOW2 8
+DICTUGET
+IFREFELSEREF
+{
+	LDU 128
+	LDU 256
+	LDU 256
+	ENDS
+	TRIPLE
+}
+{
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TRIPLE
+}
+UNTRIPLE
+DROP2
+.loc ../contracts/Staker.tsol, 165
+GETGLOB 17
+OVER
+GEQ
+THROWIFNOT 1091
+.loc ../contracts/Staker.tsol, 166
+GETGLOB 18
+OVER
+GEQ
+THROWIFNOT 1092
+.loc ../contracts/Staker.tsol, 168
+GETGLOB 9
+GETGLOB 21
+DUP2
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+ROLL 4
+SWAP
+PUSHPOW2 8
+DICTUDEL
+DROP
+NEWC
+STDICT
+ROTREV
+PUSHINT 267
+DICTSETB
+SETGLOB 21
+.loc ../contracts/Staker.tsol, 169
+GETGLOB 9
+GETGLOB 21
+PUSHINT 267
+DICTGET
+PUSHCONT {
+	PLDDICT
+}
+PUSHCONT {
+	NEWDICT
+}
+IFELSE
+DICTEMPTY
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 169
+	GETGLOB 9
+	GETGLOB 21
+	PUSHINT 267
+	DICTDEL
+	DROP
+	SETGLOB 21
+	.loc ../contracts/Staker.tsol, 0
+}
+IF
+.loc ../contracts/Staker.tsol, 171
+GETGLOB 17
+OVER
+SUB
+UFITS 256
+SETGLOB 17
+.loc ../contracts/Staker.tsol, 172
+GETGLOB 18
+OVER
+SUB
+UFITS 256
+SETGLOB 18
+.loc ../contracts/Staker.tsol, 174
+GETGLOB 11
+OVER
+NOW
+GETGLOB 9
+PUSHSLICE xc0000000000000000000000001
+NEWC
+STSLICE
+ROLLREV 4
+NEWC
+STSLICECONST x3505e0b1
+STSLICE
+STU 256
+STU 128
+STU 16
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 176
+PUSHREF {
+}
+.loc ../contracts/Staker.tsol, 177
+TRUE
+GETGLOB 9
+PUSHINT 0
+GETGLOB 9
+ROLL 5
+GETGLOB 16
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 1
+STUR 111
+ROLLREV 6
+NEWC
+STSLICECONST x73e22143
+STU 128
+STSLICE
+STU 128
+ROLLREV 3
+NEWC
+STSLICE
+STI 1
+STREF
+STBREFR
+STBREFR
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+
+.macro getLockedAmount
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 187
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $getLockedAmount_929ec537_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 2672899351
+	STUR 130
+	STU 128
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 106
+	STZEROES
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STU 128
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getLockedAmount_929ec537_internal_macro
+.loc ../contracts/Staker.tsol, 188
+PUSHINT 0
+.loc ../contracts/Staker.tsol, 189
+OVER
+GETGLOB 19
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 189
+	OVER
+	GETGLOB 19
+	PUSHINT 267
+	DICTGET
+	ZEROSWAPIFNOT
+	PUSHCONT {
+		PLDU 128
+	}
+	IF
+	NIP
+}
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 190
+	DROP
+	PUSHINT 0
+}
+IFELSE
+.loc ../contracts/Staker.tsol, 192
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+PUSHINT 64
+SETINDEXQ 4
+FALSE
+SETINDEXQ 1
+SETGLOB 4
+NIP
+.loc ../contracts/Staker.tsol, 0
+
+.macro isReadyAnyWithdraw
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 195
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $isReadyAnyWithdraw_63b99bbd_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 4117864012
+	STUR 130
+	STI 1
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 106
+	STZEROES
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STI 1
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro isReadyAnyWithdraw_63b99bbd_internal_macro
+.loc ../contracts/Staker.tsol, 196
+FALSE
+.loc ../contracts/Staker.tsol, 197
+OVER
+GETGLOB 21
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 198
+	OVER
+	GETGLOB 21
+	PUSHINT 267
+	DICTGET
+	PUSHCONT {
+		PLDDICT
+	}
+	PUSHCONT {
+		NEWDICT
+	}
+	IFELSE
+	PUSHPOW2 8
+	DICTUMIN
+	NULLSWAPIFNOT
+	IFREF {
+		SWAP
+		LDU 128
+		LDU 256
+		LDU 256
+		ENDS
+		TRIPLE
+		PAIR
+	}
+	.loc ../contracts/Staker.tsol, 199
+	DUP
+	ISNULL
+	THROWIF 63
+	UNPAIR
+	DROP
+	.loc ../contracts/Staker.tsol, 200
+	NOW
+	SWAP
+	GEQ
+	PUSHCONT {
+		.loc ../contracts/Staker.tsol, 200
+		DROP
+		TRUE
+		.loc ../contracts/Staker.tsol, 0
+	}
+	IF
+	.loc ../contracts/Staker.tsol, 0
+}
+IF
+.loc ../contracts/Staker.tsol, 203
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+PUSHINT 64
+SETINDEXQ 4
+FALSE
+SETINDEXQ 1
+SETGLOB 4
+NIP
+.loc ../contracts/Staker.tsol, 0
+
+.macro getClosestUnlock
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 206
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $getClosestUnlock_43628eb0_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 1
+	STUR 98
+	SWAP
+	NEWC
+	STSLICECONST x88a23f1e
+	SWAP
+	UNTRIPLE
+	REVERSE 4, 0
+	STU 128
+	STU 256
+	STU 256
+	STBREFR
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 1
+	STUR 106
+	SWAP
+	NEWC
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	SWAP
+	UNTRIPLE
+	REVERSE 4, 0
+	STU 128
+	STU 256
+	STU 256
+	STBREFR
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getClosestUnlock_43628eb0_internal_macro
+.loc ../contracts/Staker.tsol, 207
+PUSHINT 0
+BLKPUSH 2, 0
+TRIPLE
+.loc ../contracts/Staker.tsol, 208
+OVER
+GETGLOB 21
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 209
+	OVER
+	GETGLOB 21
+	PUSHINT 267
+	DICTGET
+	PUSHCONT {
+		PLDDICT
+	}
+	PUSHCONT {
+		NEWDICT
+	}
+	IFELSE
+	PUSHPOW2 8
+	DICTUMIN
+	NULLSWAPIFNOT
+	IFREF {
+		SWAP
+		LDU 128
+		LDU 256
+		LDU 256
+		ENDS
+		TRIPLE
+		PAIR
+	}
+	.loc ../contracts/Staker.tsol, 210
+	DUP
+	ISNULL
+	THROWIF 63
+	UNPAIR
+	BLKDROP2 2, 1
+	.loc ../contracts/Staker.tsol, 0
+}
+IF
+.loc ../contracts/Staker.tsol, 214
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+PUSHINT 64
+SETINDEXQ 4
+FALSE
+SETINDEXQ 1
+SETGLOB 4
+NIP
+.loc ../contracts/Staker.tsol, 0
+
+.macro getRegData
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 217
+LDU 32
+GETGLOB 4
+ROT
+SETINDEXQ 5
+SETGLOB 4
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $getRegData_6193e40d_internal_macro$
+}
+OVER
+PUSHCONT {
+	PUSH S3
+	CTOS
+	LDU 2
+	LDMSGADDR
+	DROP
+	NIP
+	NEWC
+	STSLICECONST xc
+	STSLICE
+	PUSHINT 4003858737
+	STUR 130
+	STDICT
+	ENDC
+	PUSHINT 0
+}
+PUSHCONT {
+	GETGLOB 4
+	DUP
+	INDEX 3
+	OVER
+	THIRD
+	GETGLOB 9
+	ROLL 3
+	SECOND
+	NEWC
+	STSLICECONST x2_
+	STI 1
+	STSLICECONST x1_
+	STSLICE
+	SWAP
+	STGRAMS
+	STDICT
+	PUSHINT 106
+	STZEROES
+	GETGLOB 4
+	INDEX 5
+	STUR 32
+	STDICT
+	ENDC
+	GETGLOB 4
+	INDEX 4
+}
+IFELSE
+SENDRAWMSG
+IFREF {
+	CALL $upd_only_time_in_c4$
+}
+THROW 0
+
+.macro getRegData_6193e40d_internal_macro
+.loc ../contracts/Staker.tsol, 218
+NEWDICT
+.loc ../contracts/Staker.tsol, 219
+OVER
+GETGLOB 21
+PUSHINT 267
+DICTGET
+NULLSWAPIFNOT
+NIP
+PUSHCONT {
+	.loc ../contracts/Staker.tsol, 219
+	OVER
+	GETGLOB 21
+	PUSHINT 267
+	DICTGET
+	PUSHCONT {
+		PLDDICT
+	}
+	PUSHCONT {
+		NEWDICT
+	}
+	IFELSE
+	NIP
+	.loc ../contracts/Staker.tsol, 0
+}
+IF
+.loc ../contracts/Staker.tsol, 221
+GETGLOB 4
+PUSHINT 0
+SETINDEXQ 2
+PUSHINT 64
+SETINDEXQ 4
+FALSE
+SETINDEXQ 1
+SETGLOB 4
+NIP
+.loc ../contracts/Staker.tsol, 0
+
+.macro setOwner
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 224
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $setOwner_13af4035_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setOwner_13af4035_internal_macro
+.loc ../contracts/Staker.tsol, 47
+GETGLOB 9
+PARSEMSGADDR
+INDEX 3
+PLDU 256
+NEQINT 0
+GETGLOB 9
+GETGLOB 12
+SDEQ
+AND
+THROWIFNOT 1021
+.loc ../contracts/Staker.tsol, 225
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 226
+GETGLOB 12
+.loc ../contracts/Staker.tsol, 227
+OVER
+SETGLOB 12
+.loc ../contracts/Staker.tsol, 228
+TUCK
+PUSHSLICE xc0000000000000000000000001
+NEWC
+STSLICE
+ROTREV
+NEWC
+STSLICECONST x47007a11
+STSLICE
+SWAP
+NEWC
+STSLICE
+STBREFR
+STBREFR
+ENDC
+PUSHINT 0
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 229
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+ADDCONST 2
+UFITS 8
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+
+.macro setMinStake
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 236
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 128
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $setMinStake_2d782e76_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setMinStake_2d782e76_internal_macro
+.loc ../contracts/Staker.tsol, 47
+GETGLOB 9
+PARSEMSGADDR
+INDEX 3
+PLDU 256
+NEQINT 0
+GETGLOB 9
+GETGLOB 12
+SDEQ
+AND
+THROWIFNOT 1021
+.loc ../contracts/Staker.tsol, 237
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 238
+SETGLOB 14
+.loc ../contracts/Staker.tsol, 239
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+ADDCONST 2
+UFITS 8
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+
+.macro setLPToken
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 246
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $setLPToken_190cb2bb_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setLPToken_190cb2bb_internal_macro
+.loc ../contracts/Staker.tsol, 47
+GETGLOB 9
+PARSEMSGADDR
+INDEX 3
+PLDU 256
+NEQINT 0
+GETGLOB 9
+GETGLOB 12
+SDEQ
+AND
+THROWIFNOT 1021
+.loc ../contracts/Staker.tsol, 247
+OVER
+PARSEMSGADDR
+INDEX 3
+PLDU 256
+NEQINT 0
+DUP
+PUSHCONT {
+	DROP
+	DUP
+	PARSEMSGADDR
+	INDEX 3
+	PLDU 256
+	NEQINT 0
+}
+IF
+THROWIFNOT 1023
+.loc ../contracts/Staker.tsol, 248
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 249
+SWAP
+SETGLOB 13
+.loc ../contracts/Staker.tsol, 250
+SETGLOB 16
+.loc ../contracts/Staker.tsol, 251
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+ADDCONST 2
+UFITS 8
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+
+.macro setLockTime
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 258
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDU 256
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $setLockTime_ae04d45d_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro setLockTime_ae04d45d_internal_macro
+.loc ../contracts/Staker.tsol, 47
+GETGLOB 9
+PARSEMSGADDR
+INDEX 3
+PLDU 256
+NEQINT 0
+GETGLOB 9
+GETGLOB 12
+SDEQ
+AND
+THROWIFNOT 1021
+.loc ../contracts/Staker.tsol, 259
+DUP
+GETGLOB 22
+LEQ
+THROWIFNOT 1100
+.loc ../contracts/Staker.tsol, 260
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 261
+SETGLOB 22
+.loc ../contracts/Staker.tsol, 262
+GETGLOB 9
+NEWC
+STSLICECONST x42_
+STSLICE
+PUSHINT 111
+STZEROES
+ENDC
+PUSHPOW2 7
+ADDCONST 2
+UFITS 8
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+
+.globl	_targetBalance_81a00f03_internal
+.type	_targetBalance_81a00f03_internal, @function
+CALL $_targetBalance_81a00f03_internal_macro$
+
+.macro _targetBalance_81a00f03_internal_macro
+.loc ../contracts/Staker.tsol, 270
+PUSHINT 1000000000
+.loc ../contracts/Staker.tsol, 0
+
+.macro sendMessage
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 273
+OVER
+PUSHCONT {
+	LDREF
+	ENDS
+	CTOS
+}
+IF
+LDMSGADDR
+LDREF
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $sendMessage_d338f0d9_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro sendMessage_d338f0d9_internal_macro
+.loc ../contracts/Staker.tsol, 47
+GETGLOB 9
+PARSEMSGADDR
+INDEX 3
+PLDU 256
+NEQINT 0
+GETGLOB 9
+GETGLOB 12
+SDEQ
+AND
+THROWIFNOT 1021
+.loc ../contracts/Staker.tsol, 277
+CALLREF {
+	CALL $_targetBalance_81a00f03_internal_macro$
+}
+PUSHINT 0
+RAWRESERVE
+.loc ../contracts/Staker.tsol, 278
+SWAP
+NEWC
+STSLICECONST x62_
+STSLICE
+PUSHINT 1
+STUR 111
+STREF
+ENDC
+PUSHPOW2 7
+SENDRAWMSG
+.loc ../contracts/Staker.tsol, 0
+
+.macro upgrade
+DROP
+GETGLOB 6
+THROWIFNOT 76
+GETGLOB 2
+ISNULL
+IFREF {
+	CALL $c4_to_c7$
+}
+.loc ../contracts/Staker.tsol, 285
+LDREF
+ENDS
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $upgrade_7916ae0d_internal_macro$
+}
+DROP
+CALLREF {
+	CALL $c7_to_c4$
+}
+THROW 0
+
+.macro upgrade_7916ae0d_internal_macro
+.loc ../contracts/Staker.tsol, 47
+GETGLOB 9
+PARSEMSGADDR
+INDEX 3
+PLDU 256
+NEQINT 0
+GETGLOB 9
+GETGLOB 12
+SDEQ
+AND
+THROWIFNOT 1021
+.loc ../contracts/Staker.tsol, 286
+GETGLOB 19
+NEWC
+STDICT
+ENDC
+.loc ../contracts/Staker.tsol, 287
+GETGLOB 21
+NEWC
+STDICT
+ENDC
+.loc ../contracts/Staker.tsol, 288
+GETGLOB 16
+GETGLOB 13
+GETGLOB 12
+NEWC
+STSLICE
+ROTREV
+NEWC
+STSLICE
+SWAP
+NEWC
+STSLICE
+STBREFR
+STBREFR
+ENDC
+.loc ../contracts/Staker.tsol, 293
+GETGLOB 18
+GETGLOB 17
+GETGLOB 10
+GETGLOB 14
+GETGLOB 15
+GETGLOB 11
+NEWC
+STU 16
+STU 32
+STU 128
+STU 256
+STU 256
+STU 256
+GETGLOB 22
+NEWC
+STU 256
+STBREFR
+ENDC
+.loc ../contracts/Staker.tsol, 304
+ROLL 3
+NEWC
+STREF
+.loc ../contracts/Staker.tsol, 305
+ROLL 3
+SWAP
+STREF
+.loc ../contracts/Staker.tsol, 306
+XCHG S1, S2
+STREF
+.loc ../contracts/Staker.tsol, 307
+STREF
+.loc ../contracts/Staker.tsol, 308
+ENDC
+.loc ../contracts/Staker.tsol, 310
+OVER
+SETCODE
+.loc ../contracts/Staker.tsol, 311
+SWAP
+CTOS
+DUP
+PUSHSLICE x8adb35
+SDEQ
+PUSHCONT {
+	PLDREFIDX 1
+	CTOS
+}
+IF
+PLDREF
+CTOS
+BLESS
+POP C3
+.loc ../contracts/Staker.tsol, 312
+CALLREF {
+	CALL $:onCodeUpgrade$
+}
+.loc ../contracts/Staker.tsol, 0
+
+.internal-alias :onCodeUpgrade, 2
+.internal :onCodeUpgrade
+.loc ../contracts/Staker.tsol, 316
+PUSHINT 0
+SETGLOB 10
+PUSHINT 0
+SETGLOB 11
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 12
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 13
+PUSHINT 0
+SETGLOB 14
+PUSHINT 0
+SETGLOB 15
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 16
+PUSHINT 0
+SETGLOB 17
+PUSHINT 0
+SETGLOB 18
+NEWDICT
+SETGLOB 19
+PUSHINT 0
+BLKPUSH 2, 0
+TRIPLE
+SETGLOB 20
+NEWDICT
+SETGLOB 21
+PUSHINT 0
+SETGLOB 22
+.loc ../contracts/Staker.tsol, 317
+CTOS
+.loc ../contracts/Staker.tsol, 318
+LDREF
+LDREF
+LDREF
+PLDREF
+.loc ../contracts/Staker.tsol, 320
+ROLL 3
+CTOS
+LDDICT
+ENDS
+SETGLOB 19
+.loc ../contracts/Staker.tsol, 321
+ROT
+CTOS
+LDDICT
+ENDS
+SETGLOB 21
+.loc ../contracts/Staker.tsol, 322
+SWAP
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+ENDS
+XCHG S2
+SETGLOB 12
+SETGLOB 13
+SETGLOB 16
+.loc ../contracts/Staker.tsol, 325
+CTOS
+LDU 16
+LDU 32
+LDU 128
+LDU 256
+LDU 256
+LDU 256
+LDREF
+ENDS
+CTOS
+LDU 256
+ENDS
+REVERSE 7, 0
+SETGLOB 11
+SETGLOB 15
+SETGLOB 14
+SETGLOB 10
+SETGLOB 17
+SETGLOB 18
+SETGLOB 22
+.loc ../contracts/Staker.tsol, 342
+GETGLOB 15
+INC
+UFITS 32
+SETGLOB 15
+.loc ../contracts/Staker.tsol, 0
+CALLREF {
+	CALL $c7_to_c4$
+}
+COMMIT
+THROW 0
+
+.macro c4_to_c7
+PUSHROOT
+CTOS
+LDU 256 ; pubkey c4
+LDU 64 ; pubkey timestamp c4
+LDU 1 ; ctor flag
+NIP
+LDU 256
+LDU 16
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 128
+LDU 32
+LDREF
+ENDS
+CTOS
+LDMSGADDR
+LDU 256
+LDREF
+ENDS
+CTOS
+LDU 256
+LDDICT
+LDU 128
+LDU 256
+LDU 256
+ROLLREV 3
+TRIPLE
+SWAP
+LDDICT
+LDREF
+ENDS
+CTOS
+LDU 256
+ENDS
+SETGLOB 22
+SETGLOB 21
+SETGLOB 20
+SETGLOB 19
+SETGLOB 18
+SETGLOB 17
+SETGLOB 16
+SETGLOB 15
+SETGLOB 14
+SETGLOB 13
+SETGLOB 12
+SETGLOB 11
+SETGLOB 10
+SETGLOB 3
+SETGLOB 2
+
+.macro c4_to_c7_with_init_storage
+PUSHROOT
+CTOS
+SBITS
+GTINT 1
+PUSHCONT {
+	PUSHINT 0
+	PUSHROOT
+	CTOS
+	PLDDICT ; D
+	PUSHINT 1
+	OVER
+	PUSHINT 64
+	DICTUGET
+	ZEROSWAPIFNOT
+	PUSHCONT {
+		PLDU 256
+	}
+	IF
+	PUSHINT 2
+	PUSH S2
+	PUSHINT 64
+	DICTUGET
+	ZEROSWAPIFNOT
+	PUSHCONT {
+		PLDU 16
+	}
+	IF
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	DUP
+	PUSHINT 0
+	DUP
+	PUSHREFSLICE {
+		.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+	}
+	PUSHINT 0
+	DUP
+	NEWDICT
+	PUSHINT 0
+	BLKPUSH 2, 0
+	TRIPLE
+	NEWDICT
+	PUSHINT 0
+	SETGLOB 22
+	SETGLOB 21
+	SETGLOB 20
+	SETGLOB 19
+	SETGLOB 18
+	SETGLOB 17
+	SETGLOB 16
+	SETGLOB 15
+	SETGLOB 14
+	SETGLOB 13
+	SETGLOB 12
+	SETGLOB 11
+	SETGLOB 10
+	PUSHINT 64
+	DICTUGET
+	THROWIFNOT 61
+	PLDU 256
+	SETGLOB 2
+	PUSHINT 0 ; timestamp
+	SETGLOB 3
+	PUSHINT 0
+	SETGLOB 17
+	PUSHINT 0
+	SETGLOB 18
+	PUSHINT 40
+	SETGLOB 22
+}
+IFREFELSE {
+	CALL $c4_to_c7$
+}
+
+.macro c7_to_c4
+GETGLOB 22
+GETGLOB 21
+GETGLOB 20
+GETGLOB 19
+GETGLOB 18
+GETGLOB 17
+GETGLOB 16
+GETGLOB 15
+GETGLOB 14
+GETGLOB 13
+GETGLOB 12
+GETGLOB 11
+GETGLOB 10
+GETGLOB 3
+GETGLOB 2
+NEWC
+STU 256
+STU 64
+STONE
+STU 256
+STU 16
+ROLLREV 11
+NEWC
+STSLICE
+ROLLREV 10
+NEWC
+STSLICE
+STU 128
+STU 32
+ROLLREV 7
+NEWC
+STSLICE
+STU 256
+ROLLREV 5
+NEWC
+STU 256
+STDICT
+SWAP
+UNTRIPLE
+REVERSE 4, 0
+STU 128
+STU 256
+STU 256
+STDICT
+SWAP
+NEWC
+STU 256
+STBREFR
+STBREFR
+STBREFR
+STBREFR
+STBREFR
+ENDC
+POPROOT
+
+.macro upd_only_time_in_c4
+PUSHROOT
+CTOS
+LDU 256
+LDU 64
+NIP
+GETGLOB 3
+ROT
+NEWC
+STU 256
+STU 64
+STSLICE
+ENDC
+POPROOT
+
+.internal-alias :main_internal, 0
+.internal :main_internal
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSH S2
+CTOS
+LDU 4 ; bounced tail
+LDMSGADDR ; bounced src tail
+DROP
+SETGLOB 9
+MODPOW2 1
+GETGLOB 4
+TRUE
+SETINDEXQ 1
+PUSHINT 10000000
+SETINDEXQ 2
+NULL
+SETINDEXQ 3
+PUSHINT 0
+SETINDEXQ 4
+SETGLOB 4
+IFRET
+OVER
+SEMPTY ; isEmpty
+IFJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+OVER
+LDUQ 32  ; [funcId] body' ok
+THROWIFNOT 60
+OVER
+IFNOTJMPREF {
+	GETGLOB 6
+	THROWIFNOT 76
+}
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.internal-alias :main_external, -1
+.internal :main_external
+PUSHROOT
+CTOS
+SBITS
+NEQINT 1
+SETGLOB 6
+PUSHREFSLICE {
+	.blob x8000000000000000000000000000000000000000000000000000000000000000001_
+}
+SETGLOB 9
+OVER
+CALLREF {
+	CALL $c4_to_c7_with_init_storage$
+}
+LDU 1 ; haveSign msgSlice
+SWAP
+PUSHCONT {
+	PUSHPOW2 9
+	LDSLICEX ; signatureSlice msgSlice
+	DUP
+	HASHSU ; signatureSlice msgSlice hashMsgSlice
+	SWAP
+	LDU 1 ; signatureSlice hashMsgSlice hasPubkey msgSlice
+	SWAP
+	PUSHCONT {
+		LDU 256 ; signatureSlice hashMsgSlice pubkey msgSlice
+		XCHG S3
+		SWAP
+	}
+	PUSHCONT {
+		XCHG S2
+		GETGLOB 2
+	}
+	IFELSE
+	CHKSIGNU ; msgSlice isSigned
+	THROWIFNOT 40
+}
+PUSHCONT {
+	LDU 1 ; hasPubkey msgSlice
+	SWAP
+	THROWIF 58
+}
+IFELSE
+LDU 64 ; timestamp msgSlice
+SWAP
+CALL $replay_protection_macro$
+LDU 32 ; expireAt msgSlice
+SWAP
+NOW ; msgSlice expireAt now
+GREATER ; msgSlice expireAt>now
+THROWIFNOT 57
+LDU 32 ; funcId body
+SWAP
+CALLREF {
+	CALL $public_function_selector$
+}
+THROW 60
+
+.macro owner_
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 12
+OVER
+PUSHCONT {
+	PUSHSLICE xc00000000000000000000000008c0c3cfd
+	NEWC
+	STSLICE
+	STSLICE
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro LPTokenRoot_
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 13
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000e73b623e
+	NEWC
+	STSLICE
+	STSLICE
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro minimalStake_
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 14
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000c1e5d4cf
+	NEWC
+	STSLICE
+	STU 128
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro stakerVersion_
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 15
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000ce6898a6
+	NEWC
+	STSLICE
+	STU 32
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro LPTokenWallet_
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 16
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000ffd420a0
+	NEWC
+	STSLICE
+	STSLICE
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro TVL
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 17
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000ba97e469
+	NEWC
+	STSLICE
+	STU 256
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro amountWaitingUnlock
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 18
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000d26aa0cb
+	NEWC
+	STSLICE
+	STU 256
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro stakedByOwner
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 19
+OVER
+PUSHCONT {
+	PUSHSLICE xc00000000000000000000000008e4e6ecb
+	NEWC
+	STSLICE
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro reg
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 21
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000cb89bb50
+	NEWC
+	STSLICE
+	STDICT
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro lockTime_
+DROP
+ENDS
+CALLREF {
+	CALL $c4_to_c7$
+}
+GETGLOB 22
+OVER
+PUSHCONT {
+	PUSHSLICE xc0000000000000000000000000aac692a2
+	NEWC
+	STSLICE
+	STU 256
+	ENDC
+	PUSHINT 0
+	SENDRAWMSG
+}
+IF
+THROW 0
+
+.macro public_function_selector
+DUP
+PUSHINT 1315477670
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 286412104
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 144850718
+		EQUAL
+		IFJMPREF {
+			CALL $getClosestUnlock$
+		}
+		DUP
+		PUSHINT 202128637
+		EQUAL
+		IFJMPREF {
+			CALL $owner_$
+		}
+		DUP
+		PUSHINT 240021195
+		EQUAL
+		IFJMPREF {
+			CALL $stakedByOwner$
+		}
+		DUP
+		PUSHINT 286412104
+		EQUAL
+		IFJMPREF {
+			CALL $startUnlock$
+		}
+	}
+	DUP
+	PUSHINT 717656738
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 388172858
+		EQUAL
+		IFJMPREF {
+			CALL $upgrade$
+		}
+		DUP
+		PUSHINT 525415703
+		EQUAL
+		IFJMPREF {
+			CALL $getLockedAmount$
+		}
+		DUP
+		PUSHINT 663198384
+		EQUAL
+		IFJMPREF {
+			CALL $withdraw$
+		}
+		DUP
+		PUSHINT 717656738
+		EQUAL
+		IFJMPREF {
+			CALL $lockTime_$
+		}
+	}
+	DUP
+	PUSHINT 1062866364
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 802052890
+		EQUAL
+		IFJMPREF {
+			CALL $setLPToken$
+		}
+		DUP
+		PUSHINT 877164744
+		EQUAL
+		IFJMPREF {
+			CALL $setMinStake$
+		}
+		DUP
+		PUSHINT 983032937
+		EQUAL
+		IFJMPREF {
+			CALL $TVL$
+		}
+		DUP
+		PUSHINT 1062866364
+		EQUAL
+		IFJMPREF {
+			CALL $onGetAddress$
+		}
+	}
+	DUP
+	PUSHINT 1315477670
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1105581263
+		EQUAL
+		IFJMPREF {
+			CALL $minimalStake_$
+		}
+		DUP
+		PUSHINT 1267317584
+		EQUAL
+		IFJMPREF {
+			CALL $reg$
+		}
+		DUP
+		PUSHINT 1280860181
+		EQUAL
+		IFJMPREF {
+			CALL $setLockTime$
+		}
+		DUP
+		PUSHINT 1315477670
+		EQUAL
+		IFJMPREF {
+			CALL $stakerVersion_$
+		}
+	}
+}
+DUP
+PUSHINT 2144608416
+LEQ
+IFJMPREF {
+	DUP
+	PUSHINT 1742659913
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1382719691
+		EQUAL
+		IFJMPREF {
+			CALL $amountWaitingUnlock$
+		}
+		DUP
+		PUSHINT 1530967609
+		EQUAL
+		IFJMPREF {
+			CALL $constructor$
+		}
+		DUP
+		PUSHINT 1731945022
+		EQUAL
+		IFJMPREF {
+			CALL $LPTokenRoot_$
+		}
+		DUP
+		PUSHINT 1742659913
+		EQUAL
+		IFJMPREF {
+			CALL $sendMessage$
+		}
+	}
+	DUP
+	PUSHINT 1970380364
+	LEQ
+	IFJMPREF {
+		DUP
+		PUSHINT 1802285830
+		EQUAL
+		IFJMPREF {
+			CALL $setOwner$
+		}
+		DUP
+		PUSHINT 1856375089
+		EQUAL
+		IFJMPREF {
+			CALL $getRegData$
+		}
+		DUP
+		PUSHINT 1893244873
+		EQUAL
+		IFJMPREF {
+			CALL $onAcceptTokensTransfer$
+		}
+		DUP
+		PUSHINT 1970380364
+		EQUAL
+		IFJMPREF {
+			CALL $isReadyAnyWithdraw$
+		}
+	}
+	DUP
+	PUSHINT 2144608416
+	EQUAL
+	IFJMPREF {
+		CALL $LPTokenWallet_$
+	}
+}
+

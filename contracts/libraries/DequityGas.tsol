@@ -1,0 +1,19 @@
+pragma ever-solidity >= 0.62.0;
+
+library DequityGas {
+    uint128 constant TARGET_STAKER_BALANCE                  = 1 ever;
+    uint128 constant TO_ROOT_FOR_DEPLOY_WALLET_AMOUNT       = 2 ever;
+    uint128 constant DEPLOY_WALLET_AMOUNT                   = 0.3 ever;
+    uint128 constant MINT_GAS                               = 1 ever;
+    
+    //Staker user operations
+    uint128 constant MIN_TRANSFER_GAS                       = 1 ever;
+    uint128 constant START_UNLOCK_GAS                       = 0.5 ever;
+    uint128 constant WITHDRAW_GAS                           = 2 ever;
+
+    // uint128 constant TARGET_WALLET_BALANCE                          = 0.1 ton;
+
+    // // ABSOLUTE
+    // uint128 constant TOKEN_FACTORY_INITIAL_BALANCE      = 1 ton;
+    // uint128 constant DEPLOY_TOKEN_ROOT_VALUE            = 2 ton;
+}
